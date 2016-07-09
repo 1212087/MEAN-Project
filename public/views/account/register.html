@@ -1,0 +1,58 @@
+<div class="container-fluid no-padding">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 login">
+			<form class="form-horizontal center login-form" role="form" ng-submit="register()" name="form">
+				<div class="form-group">
+					<legend>Đăng Ký</legend>
+				</div>
+				<div class="form-group has-feedback">
+					<div class="row no-margin">
+						<div class="col-sm-12">
+							<input type="text" class="form-control" required="required" title="Họ tên" placeholder="Họ và tên" ng-model="user.name"> <br>
+							<span class="glyphicon glyphicon-user form-control-feedback"></span>
+						</div>
+					</div>
+					
+					<div class="row no-margin">
+						<div class="col-sm-12">
+							<input type="text" name="email" id="inputEmail" class="form-control" required="required" title="Email/Phone" placeholder="Email/Số điện thoại" ng-model="user.email" ng-click="warningEmailInput()"> <br>
+							<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+						</div>
+					</div>
+					
+					<div class="row no-margin">
+						<div class=" col-sm-12">
+							<input type="password" name="password" id="inputPassword" class="form-control" required="required" title="Password" placeholder="Mật Khẩu" ng-model="user.password"> <br>
+							<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+						</div>
+						
+					</div>
+
+					<div class="row no-margin">
+						<div class=" col-sm-12">
+							<input type="password" name="re-password" id="inputRe-password" class="form-control" required="required" title="Re-password" placeholder="Nhập lại mật khẩu" ng-model="user.repassword"> <br>
+							<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+						</div>
+					</div>
+					<div class="row no-margin" ng-show="isDone">
+						<div class="col-sm-12 alert alert-success" ng-show="success">
+							<h3 class="no-margin"><i class="fa fa-check">{{message}}</i></h3>
+						</div>
+						<div class="col-sm-12 alert alert-warning" ng-show="!success">
+							<h3 class="no-margin"><i class="fa fa-close">{{message}}</i></h3>
+						</div>
+					</div>
+				<div class="form-group">
+					<div class="col-sm-12">
+						<button type="submit" class="btn btn-success">
+     						<i class="fa fa-spinner fa-spin" ng-show="Proccess" ></i>
+							Đăng Ký
+						</button>
+						<button type="button" class="btn btn-primary" ng-click="back()">Trở Lại</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+

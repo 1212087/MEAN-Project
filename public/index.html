@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="vi" ng-app="myApp">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>iMarket - chợ điện tử</title>
+		<base href="/" />
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" type="text/css" href="libs/bootstrap/dist/css/bootstrap.css">
+		<!-- Style -->
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" href="libs/animate.css/animate.css">
+		<link rel="stylesheet" href="libs/font-awesome/css/font-awesome.css">
+		<link rel="stylesheet" type="text/css" href="libs/jasny-bootstrap/dist/css/jasny-bootstrap.min.css">
+
+		<script src="libs/angular/angular.js"></script>
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
+
+<!-- <input type="filepicker" data-fp-apikey="AHBdUjo0MS0yyWyOgcqFUz"
+onchange="alert(event.fpfile.url)">	</head> -->
+	<body>
+		<!-- Page -->
+		<div class="container-fluid" id="wrapper">
+			<!-- Navbar -->
+			<div class="row">
+				<nav class="navbar navbar-default menu-bar center" role="navigation">
+					<div class="container-fluid">
+						<!-- Brand and toggle get grouped for better mobile display -->
+						<div class="navbar-header">
+							<div class="navbar-brand logo">
+								<a href="/" title=""><img src="img/logo/1.jpg" alt="" ></a>
+							</div>
+							<button type="button" class="navbar-toggle menu-button" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar bg-white"></span>
+								<span class="icon-bar bg-white"></span>
+								<span class="icon-bar bg-white"></span>
+							</button>
+						</div>
+				
+						<!-- Collect the nav links, forms, and other content for toggling -->
+						<div class="collapse navbar-collapse navbar-ex1-collapse menu" ng-controller="UserCtrl">
+							<ul class="nav navbar-nav menu">
+								<li><a class="newpost-btn" href="/new" title="Đăng tin bài mới" data-target=".navbar-collapse" data-toggle="collapse"><b>ĐĂNG BÁN NGAY!</b></a></li>
+								<li ng-if="!isLoggedIn"><a data-toggle="collapse" data-target=".navbar-collapse" href="/login" ><b>ĐĂNG NHẬP</b></a></li>
+								<li ng-if="isLoggedIn" class="top-menu"><a href="" title=""><b>QUẢN LÝ TÀI KHOẢN</b></a></li>
+								<li><a data-toggle="collapse" data-target=".navbar-collapse" href=""><b>TRỢ GIÚP</b></a></li>
+								<li><a data-toggle="collapse" data-target=".navbar-collapse" href="/about"><b>VỀ CHÚNG TÔI</b></a></li>
+								<li ng-if="isLoggedIn"><a href="" ng-click="logout()" title=""><b>ĐĂNG XUẤT</b></a></li>
+							</ul>
+						</div><!-- /.navbar-collapse -->
+					</div>
+				</nav>
+			</div>
+			<!-- Content, add row class first for 100% width -->
+			<div ui-view>
+				
+			</div>
+			<!-- Hiển thị thông báo thành công-->
+
+            <div flash-alert="success" class="fade" active-class="in alert-flash" >
+                <button type="button" class="close" ng-click="hide()">&times;</button>
+                <strong class="alert-heading">Thông báo!</strong>
+                <span class="alert-message" ng-bind="flash.message"></span>
+            </div>
+
+
+            <!-- Hiển thị thông báo lỗi-->
+
+            <div flash-alert="error" active-class="in alert-flash" class="fade">
+                <button type="button" class="close" ng-click="hide()">&times;</button>
+                <strong class="alert-heading">Thông báo!</strong>
+                <span class="alert-message" ng-bind="flash.message"></span>
+            </div>
+
+            <!-- Hiển thị thông báo warning-->
+
+            <div flash-alert="warn" active-class="in alert-flash" class="fade">
+                <button type="button" class="close" ng-click="hide()">&times;</button>
+                <strong class="alert-heading">Thông báo!</strong>
+                <span class="alert-message" ng-bind="flash.message"></span>
+            </div>
+
+            <!-- Hiển thị thông báo thông tin-->
+
+            <div flash-alert="info" active-class="in alert-flash" class="fade">
+                <button type="button" class="close" ng-click="hide()">&times;</button>
+                <strong class="alert-heading">Thông báo!</strong>
+                <span class="alert-message" ng-bind="flash.message"></span>
+            </div>
+
+			<!-- Footer -->
+			<div class="row">
+				<div id="footer">
+					<div class="center">
+						iMarket - Copyright &copy; 2016 - HCMUS
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- jQuery -->
+		<script src="libs/jquery/dist/jquery.js"></script>
+		<!-- Bootstrap JavaScript -->
+		<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+		<!-- Angular JS -->
+ 		<script src="libs/angular-ui-router/release/angular-ui-router.min.js"></script>
+ 		<script src="libs/angular-flash/dist/angular-flash.js"></script>
+ 		<script src="libs/angular-cookies/angular-cookies.js"></script>
+		 <!--Angular Controller-->
+		<script src="js/controllers/AboutCtrl.js"></script>
+		<script src="js/controllers/HomeCtrl.js"></script>
+		<script src="js/controllers/PostCtrl.js"></script>
+		<script src="js/controllers/UserCtrl.js"></script>
+		<script src="js/controllers/WelcomeCtrl.js"></script>
+		<!--Angular Service-->
+		<script src="js/services/provinceService.js"></script>
+		<script src="js/services/userService.js"></script>
+		<script src="js/services/authService.js"></script>
+
+		<script src="js/appRoutes.js"></script>
+ 		<script src="js/app.js"></script>
+
+		<script src="libs/wow/dist/wow.js"></script>
+		<script>
+			new WOW().init();
+		</script>
+		<script src="libs/jasny-bootstrap/dist/js/jasny-bootstrap.min.js"></script>
+	</body>
+</html>

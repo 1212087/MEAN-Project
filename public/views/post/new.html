@@ -1,0 +1,107 @@
+<div class="container-fluid">
+	<div id="content">
+		<div class="row">
+			<div class="col-sm-12 col-lg-9 new-post">
+				<form action="" method="POST" class="form-horizontal" role="form">
+					<div class="form-group center">
+						<legend>Đăng bán</legend>
+					</div>
+					<div class="form-group has-feedback">
+						<label class="control-label col-sm-2 mobile-hidden" for="name">Tên:</label>
+						<div class="col-sm-10">
+							<input type="text" id="name" class="form-control" required="required" placeholder="Tên" value="{{user.name}}" disabled> 
+							<span class="glyphicon glyphicon-user form-control-feedback"></span>
+						</div>
+					</div>
+					<div class="form-group has-feedback">
+						<label class="control-label col-sm-2 mobile-hidden" for="phonenumber">Email:</label>
+						<div class="col-sm-10">
+							<input type="email" id="email" class="form-control" required="required" placeholder="Email" value="{{user.email}}" disabled>
+							<span class="glyphicon glyphicon-envelope form-control-feedback"></span>	
+						</div>
+					</div>
+					<div class="form-group has-feedback">
+						<label class="control-label col-sm-2 mobile-hidden" for="phonenumber">Số Điện Thoại:</label>
+						<div class="col-sm-10">
+							<input type="tel" name="" id="phonenumber" class="form-control" required="required" placeholder="Số Điện Thoại">
+							<span class="glyphicon glyphicon-phone-alt form-control-feedback"></span>	
+						</div>
+					</div>
+						
+					<div class="form-group has-feedback">
+						<label class="control-label col-sm-2 mobile-hidden" for="address">Địa chỉ:</label>
+						<div id="address">
+							<div class="col-sm-5">
+								<select name="" id="input" class="form-control">
+									<option ng-repeat="province in provinces track by province._id"> {{province.name}} </option>
+								</select>
+							</div>
+							<div class="col-sm-5">
+								<select name="" id="couty" class="form-control" required="required">
+									<option value="">Quận / Huyện</option>
+								</select>
+							</div>			
+						</div>
+					</div>
+					<div class="form-group has-feedback">
+						<label class="control-label col-sm-2 mobile-hidden" for="address2"></label>
+						<div class="col-sm-10">
+							<input type="text" name="" id="address2" class="form-control" value="" required="required" title="" placeholder="Số nhà - Tên đường">
+							<span class="glyphicon glyphicon-home form-control-feedback"></span>	
+						</div>
+					</div>
+					<div class="form-group has-feedback">
+						<label class="control-label col-sm-2 mobile-hidden" for="title">Tiêu đề:</label>
+						<div class="col-sm-10">
+							<input type="text" name="" id="title" class="form-control" value="" required="required" pattern="" title="" placeholder="Bạn muốn bán gì?">
+							<span class="glyphicon glyphicon-pencil form-control-feedback"></span>	
+						</div>
+					</div>		
+					<div class="form-group has-feedback">
+						<label class="control-label col-sm-2" for="title">Ảnh:</label>
+						<div class="col-sm-10 center">
+							<div class="fileinput fileinput-new" data-provides="fileinput">
+							  	<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+							  	<div>
+							    	<span class="btn btn-info btn-file"><span class="fileinput-new">Chọn ảnh</span><span class="fileinput-exists">Thay đổi</span><input type="file" name="..."></span>
+							    	<a href="#" class="btn btn-info fileinput-exists" data-dismiss="fileinput">Xóa</a>
+							  </div>
+							</div>
+							<div class="fileinput fileinput-new" data-provides="fileinput">
+							  	<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+							  	<div>
+							    	<span class="btn btn-info btn-file"><span class="fileinput-new">Chọn ảnh</span><span class="fileinput-exists">Thay đổi</span><input type="file" name="..."></span>
+							    	<a href="#" class="btn btn-info fileinput-exists" data-dismiss="fileinput">Xóa</a>
+							  </div>
+							</div>
+							<div class="fileinput fileinput-new" data-provides="fileinput">
+							  	<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+							  	<div>
+							    	<span class="btn btn-info btn-file"><span class="fileinput-new">Chọn ảnh</span><span class="fileinput-exists">Thay đổi</span><input type="file" name="..."></span>
+							    	<a href="#" class="btn btn-info fileinput-exists" data-dismiss="fileinput">Xóa</a>
+							  </div>
+							</div>
+						</div>
+					</div>		
+					<div class="form-group has-feedback">
+						<label class="control-label col-sm-2 mobile-hidden" for="detai">Mô tả:</label>
+						<div class="col-sm-10">
+							<textarea name="" id="detail" class="form-control" rows="8" required="required" placeholder="Mô tả về sản phẩm này"></textarea>	
+						</div>
+					</div>		
+					<div class="form-group center">
+						<div class="col-sm-12">
+							<button type="submit" class="btn btn-success">Đăng ngay</button>
+							<button type="button" class="btn btn-primary">Trở lại</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-lg-3">
+				<div class="panel mobile-hidden center">
+					<h3>Bài đăng vừa xem</h3>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>

@@ -1,0 +1,27 @@
+{
+  "name": "udpt-doan-2016",
+  "description": "Do an mon hoc UDPT-2016",
+  "main": "",
+  "authors": [
+    "1112142",
+    "1212087",
+    "1212302",
+    "1212447"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "angular": "^1.5.7",
+    "font-awesome": "^4.6.3",
+    "angular-route": "^1.5.7",
+    "angular-sanitize": "^1.5.7",
+    "animate.css": "^3.5.2",
+    "wow": "^1.1.2",
+    "jasny-bootstrap": "^3.1.3",
+    "bootstrap-fileinput": "^4.3.2",
+    "angular-ui-router": "^0.3.1",
+    "angular-flash": "^0.1.14",
+    "angular-cookies": "^1.5.7"
+  }
+}

@@ -1,0 +1,105 @@
+
+<div class="container-fluid">
+	<div class="row">
+		<div id="content">
+			<div class="mobile-hidden image-category center panel">
+				<h3>Hàng nghìn món đồ được rao bán mỗi ngày...</h3>
+				<div class="images">
+					<div class="image center">
+						<a href="">
+							<span class="roll"><h4>Điện Thoại</h4></span>
+							<img class="img-thumbnail" src="img/images/1.jpg" alt="" title="Điện Thoại">
+						</a>
+					</div>
+					<div class="image center">
+						<a href="" >
+							<span class="roll"><h4>Mẹ và Bé</h4></span>
+							<img class="img-thumbnail" src="img/categories/me-be.jpg" alt="">
+						</a>
+					</div>
+					<div class="image center">
+						<a href="">
+							<span class="roll"><h4>Gia Dụng</h4></span>
+							<img class="img-thumbnail" src="img/categories/gia-dung.jpg" alt="">
+						</a>
+					</div>
+					<div class="image center">
+						<a href="">
+							<span class="roll"><h4>Xe</h4></span>
+							<img class="img-thumbnail" src="img/categories/xe.jpg" alt="">
+						</a>
+					</div>
+					<div class="image center">
+						<a href="">
+							<span class="roll"><h4>Thú Cưng</h4></span>
+							<img class="img-thumbnail" src="img/categories/thu-cung.jpg" alt="">
+						</a>
+					</div>
+					<div class="image center">
+						<a href="">
+							<span class="roll"><h4>Nhà Cửa</h4></span>
+							<img class="img-thumbnail" src="img/categories/nha-cua.jpg" alt="">
+						</a>
+					</div>
+					<div class="image center">
+						<a href="">
+							<span class="roll"><h4>Công Nghệ</h4></span>
+							<img class="img-thumbnail" src="img/categories/cong-nghe.jpg" alt="">
+						</a>
+					</div>
+					<div class="image center">
+						<a href="">
+							<span class="roll"><h4>Điện Lạnh</h4></span>
+							<img class="img-thumbnail" src="img/categories/dien-lanh.jpg" alt="">
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="main-content">
+				<div class="col-lg-6">
+					<div class="slogan center">
+						<div class="col">
+							<h1>Hãy chọn vị trí để tìm món hàng gần bạn nhất!</h1>
+						</div>
+					</div>
+
+					<div class= "center">
+						<form action="" method="POST" class="form-horizontal" role="form">
+							<div class="form-group">
+								<div class="col-sm-12">
+									<select name="" id="input" class="form-control">
+										<option value="" ng-repeat="province in provinces track by province._id"> {{province.name}} </option>
+									</select>
+									<br>
+									<button type="submit" class="btn btn-info">Vào mua ngay</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="col-lg-6 mobile-hidden">
+					<h1>Mọi người nói về chúng tôi</h1>
+					<div class="row review-content">
+						 <div class="col-lg-3 avatar image-100 center slideInRight">
+							<img class="img-thumbnail" src="img/people/nguyen-ha-dong.jpg" alt="">
+						 </div>
+						 
+						 <div class="col-lg-9">
+							 <h5><b>Nguyễn Hà Đông - Flappy Bird</b></h5>
+							 <quote><i>"Startup rao bán vặt số 1 Việt Nam"</i></quote>
+						 </div>
+					</div>
+					<div class="row review-content">
+						 <div class="col-lg-3 avatar image-100 center">
+							 <img class="img-thumbnail" src="img/people/mark-zuckerberg.jpg" alt="">
+						 </div>
+						 <div class="col-lg-9">
+							 <h5><b>Mark Zuckerberg - Facebook</b></h5>
+							 <quote><i>"Facebook nên học hỏi theo các bạn"</i></quote>
+						 </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
