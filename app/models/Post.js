@@ -3,27 +3,44 @@ var ObjectId    = mongoose.Schema.Types.ObjectId;
 var Mixed       = mongoose.Schema.Types.Mixed;
 
 var Schema = mongoose.Schema ({
-    userId: {
-        type: ObjectId,
-        required: true
-    },
+    
     title: {
         type: String,
         required: true
     },
-    category : {
+    userId: {
+        type: ObjectId,
+        required: true
+    },
+    province: {
+        type: Mixed,
+        required: true
+    },
+    county: {
+        type: Mixed,
+        required: false
+    },
+    address:{
         type: String,
         required: true
+    },
+    category: {
+        type: Mixed,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true,
     },
     description: {
         type: String,
         required: false
     },
-    image: {
+    picture: {
         type: Mixed,
         required: true
     },
-    moreImage: {
+    morePictures: {
         type: Mixed,
         required: false
     },

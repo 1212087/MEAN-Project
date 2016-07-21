@@ -1,0 +1,20 @@
+angular.module('categoryService',[])
+.factory('Category',['$http','$window', function($http, $window){
+    return {
+    	getCurrentCategory: function(){
+    		if(!$.isEmptyObject($window.localStorage.getItem('currentCategory'))){
+    			return $window.localStorage.getItem('currentCategory');
+    		}
+    		else{
+    			return null;
+    		}
+    	},
+    	setCurrentCategory: function(value){
+    		$window.localStorage.setItem('currentCategory', JSON.stringify({id:value}));
+    	},
+        get: function(){
+            var categories = $http.get('/api/category/list');
+            return categories;
+        }
+    }
+}])

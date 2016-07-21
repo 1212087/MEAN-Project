@@ -5,14 +5,12 @@ angular.module('UserCtrl', [])
     // $rootScope.isLoggedIn = AuthenticationService.isAuthenticated;
     // Xử ly user đăng nhập
     $scope.login = function() {
-        $scope.Proccess = true;
         if (!$.isEmptyObject($scope.user)){
 
             User.login($scope.user)
             .success(function(response){
                 // AuthenticationService.isAuthenticated = true;
                 // $rootScope.isLoggedIn = true;
-                $scope.isLoggedIn = true;
                 $window.sessionStorage._id = response.user._id;
                 $window.sessionStorage.email = response.user.email;
                 $window.sessionStorage.name = response.user.name;
@@ -86,11 +84,13 @@ angular.module('UserCtrl', [])
     $scope.logout = function(){
         User.logout()
         .success(function(data){
-            $scope.isLoggedIn = false;
-            delete $window.sessionStorage;
+            delete $window.sessionStorage._id;
+            delete $window.sessionStorage.email;
+            delete $window.sessionStorage.name;
+            delete $window.sessionStorage.provinceId;
             flash.success = data;
             setTimeout(function(){
-                $state.go('home');
+                $state.go('login');
             }, 500); 
         })
         .error(function(data){

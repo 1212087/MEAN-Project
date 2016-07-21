@@ -231,7 +231,7 @@ textarea {
 	}
 
 	.image img {
-		height: auto;
+		height: 100%;
 		width: 100%;
 	}
 
@@ -514,6 +514,7 @@ textarea {
 
 	.search-input-group {
 		margin-top: 10px !important;
+		margin-bottom: 10px !important;
 		padding-right: 0px !important;
 	}
 
@@ -534,9 +535,12 @@ textarea {
 		width: 100%;
 		height: 170px;
 	}
+	.post .image {
+		height: 100%;
+	}
 	.post .image img{
 		width: 100%;
-		height: auto;
+		height: 100%;
 		max-height: 168px;
 	}
 	

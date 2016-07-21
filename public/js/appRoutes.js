@@ -79,7 +79,7 @@ angular.module('appRoutes', [])
 			.state('new', {
 				url: '/new',
 				templateUrl: 'views/post/new.html',
-				controller: 'PostCtrl',
+				controller: 'NewPostCtrl',
 				title: 'Đăng bài viết mới',
 				access: {
 					requiredLogin: true,
@@ -100,7 +100,7 @@ angular.module('appRoutes', [])
 				access : {
 					requiredLogin: false
 				}
-			})
+			});
 
 		$locationProvider.html5Mode({
 			enabled: true,
@@ -116,13 +116,12 @@ angular.module('appRoutes', [])
     .run(['$rootScope', '$location', '$window', 'AuthenticationService', 'flash',
         function ($rootScope, $location, $window, AuthenticationService, flash) {
         	$rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
-        		if($window.sessionStorage._id){
-        			$rootScope.isLoggedIn = true;
-        		}
-        		else{
+        		if($window.sessionStorage._id===undefined || $window.sessionStorage._id===null){
         			$rootScope.isLoggedIn = false;
         		}
-
+        		else{
+        			$rootScope.isLoggedIn = true;
+        		}
                 if (toState != null && toState.access != null && toState.access.requiredLogin
                     && !$rootScope.isLoggedIn) {
                 	flash.error = "Bạn phải đăng nhập để truy cập trang này!";
@@ -136,10 +135,13 @@ angular.module('appRoutes', [])
                 if(toState.url == '/register' && !$rootScope.isLoggedIn){
                 	flash.warn = 'Email được dùng để khôi phục tài khoản, vui lòng cung cấp email chính xác của bạn!'
                 }
-                console.log(toState.url);
-                console.log('requiredLogin: ' + toState.access.requiredLogin);
-                console.log('requiredLogout: ' + toState.access.requiredLogout);
-                console.log('Logged in: '+ $rootScope.isLoggedIn);
-                console.log('session user: ' + $window.sessionStorage);
+                // if(toState.url == '/welcome' && !$rootScope.isLoggedIn){
+                // 	flash.warn = 'Email được dùng để khôi phục tài khoản, vui lòng cung cấp email chính xác của bạn!'
+                // }
+                // console.log(toState.url);
+                // console.log('requiredLogin: ' + toState.access.requiredLogin);
+                // console.log('requiredLogout: ' + toState.access.requiredLogout);
+                // console.log('Logged in: '+ $rootScope.isLoggedIn);
+                // console.log('session user: ' + $window.sessionStorage);
         	});
     	}]);

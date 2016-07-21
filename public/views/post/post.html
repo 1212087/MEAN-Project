@@ -51,18 +51,18 @@
 		<div class="row no-padding">
 			<div class="col-lg-9 panel panel-info post-info no-padding">
 				<div class="panel-heading center">
-					<h3 class="panel-title">Điện thoại iPhone 4</h3>
+					<h3 class="panel-title">{{post.title}}</h3>
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
 						<table class="table">
 							<tbody>
 								<tr>
-									<td colspan="2"><img src="img/images/1.jpg" class="img-thumbnail center-img" alt="Image"></td>
+									<td colspan="2"><img src={{post.picture.url}} class="img-thumbnail center-img" alt="Image"></td>
 								</tr>
 								<tr>
-									<td colspan="" rowspan="" headers="" class="center"><b>Giá:</b></td>
-									<td colspan="" rowspan="" headers="" class="price">5000000</td>
+									<td colspan="" rowspan="" headers="" class="center"></td>
+									<td colspan="" rowspan="" headers="" class="price"><h3>{{post.price}} VND</h3></td>
 								</tr>
 								<tr>
 									<td colspan="" rowspan="" headers="" class="center"><b>Tình trạng:</b></td>
@@ -70,22 +70,21 @@
 								</tr>
 								<tr>
 									<td colspan="" rowspan="" headers="" class="center"><b>Người đăng:</b></td>
-									<td colspan="" rowspan="" headers="" class="">Trang</td>
+									<td colspan="" rowspan="" headers="" class="">{{user.name}}</td>
 								</tr>
 								<tr>
 									<td colspan="" rowspan="" headers="" class="center"><b>Địa chỉ:</b></td>
-									<td colspan="" rowspan="" headers="" class="">Trần Hưng Đạo, Quận 5, Tp. Hồ Chí Minh</td>
+									<td colspan="" rowspan="" headers="" class="">{{post.address}} - {{post.province.name}}</td>
 								</tr>
 								<tr>
-									<td colspan="2" rowspan="" headers="" class="center"><b>Chi Tiết</b></td>
+									<td colspan="" rowspan="" headers="" class="center"><b>Ngày Đăng</b></td>
+									<td colspan="" rowspan="" headers="" class="">{{post.lastUpdateDate|date:'dd-MM-yyyy'}}</td>
 								</tr>
 								<tr>
-									<td colspan="2" rowspan="" headers="">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-									tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-									quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-									consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-									cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-									proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
+									<td colspan="2" rowspan="" headers="" class="center"><b>Mô tả:</b></td>
+								</tr>
+								<tr>
+									<td colspan="2" rowspan="" headers="">{{post.description}}</td>
 								</tr>
 							</tbody>
 						</table>

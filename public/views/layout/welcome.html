@@ -7,8 +7,8 @@
 				<div class="images">
 					<div class="image center">
 						<a href="">
-							<span class="roll"><h4>Điện Thoại</h4></span>
-							<img class="img-thumbnail" src="img/images/1.jpg" alt="" title="Điện Thoại">
+							<span class="roll"><h4>Game - Phần Mềm</h4></span>
+							<img class="img-thumbnail" src="img/categories/game-software.jpg" alt="" title="Điện Thoại">
 						</a>
 					</div>
 					<div class="image center">
@@ -64,11 +64,11 @@
 					</div>
 
 					<div class= "center">
-						<form action="" method="POST" class="form-horizontal" role="form">
+						<form class="form-horizontal" role="form" name="form" ng-submit="ChooseLocation()">
 							<div class="form-group">
 								<div class="col-sm-12">
-									<select name="" id="input" class="form-control">
-										<option value="" ng-repeat="province in provinces track by province._id"> {{province.name}} </option>
+									<select ng-options="province as province.name for province in provinces" class="form-control" ng-model="selectedProvince"">
+										<option value="">- Chọn Địa Điểm -</option>
 									</select>
 									<br>
 									<button type="submit" class="btn btn-info">Vào mua ngay</button>

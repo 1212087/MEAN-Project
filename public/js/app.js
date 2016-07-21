@@ -7,18 +7,23 @@
 
 var myApp = angular.module('myApp', [
 	'ui.router',
+	'angular-filepicker',
 	'angular-flash.service',
 	'angular-flash.flash-alert-directive',
+	'angularUtils.directives.dirPagination',
 	'ngCookies',
 	'appRoutes',
 	'WelcomeCtrl',
 	'HomeCtrl',
 	'UserCtrl',
 	'AboutCtrl',
+	'NewPostCtrl',
 	'PostCtrl',
 	'provinceService',
 	'userService',
-	'authService'
+	'authService',
+	'categoryService',
+	'postService'
 ])
 
 .config(['flashProvider',function(flashProvider) {
@@ -26,5 +31,8 @@ var myApp = angular.module('myApp', [
 	flashProvider.warnClassnames.push('alert-warning');
 	flashProvider.successClassnames.push('alert-success');
 	flashProvider.infoClassnames.push('alert-info');
+}])
+.config(['filepickerProvider', function (filepickerProvider) {
+	filepickerProvider.setKey('AHBdUjo0MS0yyWyOgcqFUz');
 }])
 

@@ -2,7 +2,7 @@
 	<div id="content">
 		<div class="row">
 			<div class="col-sm-12 col-lg-9 new-post">
-				<form action="" method="POST" class="form-horizontal" role="form">
+				<form class="form-horizontal" role="form" name="form" ng-submit="submitNewPost()">
 					<div class="form-group center">
 						<legend>Đăng bán</legend>
 					</div>
@@ -23,7 +23,7 @@
 					<div class="form-group has-feedback">
 						<label class="control-label col-sm-2 mobile-hidden" for="phonenumber">Số Điện Thoại:</label>
 						<div class="col-sm-10">
-							<input type="tel" name="" id="phonenumber" class="form-control" required="required" placeholder="Số Điện Thoại">
+							<input type="tel" name="" id="phonenumber" class="form-control" required="required" placeholder="Số Điện Thoại" ng-model="newPost.phone">
 							<span class="glyphicon glyphicon-phone-alt form-control-feedback"></span>	
 						</div>
 					</div>
@@ -32,12 +32,11 @@
 						<label class="control-label col-sm-2 mobile-hidden" for="address">Địa chỉ:</label>
 						<div id="address">
 							<div class="col-sm-5">
-								<select name="" id="input" class="form-control">
-									<option ng-repeat="province in provinces track by province._id"> {{province.name}} </option>
+								<select ng-options="province as province.name for province in provinces" class="form-control" ng-model="newPost.province" ng-change="provinceChange()">
 								</select>
 							</div>
 							<div class="col-sm-5">
-								<select name="" id="couty" class="form-control" required="required">
+								<select name="" id="couty" class="form-control" ng-model="newPost.county">
 									<option value="">Quận / Huyện</option>
 								</select>
 							</div>			
@@ -46,18 +45,62 @@
 					<div class="form-group has-feedback">
 						<label class="control-label col-sm-2 mobile-hidden" for="address2"></label>
 						<div class="col-sm-10">
-							<input type="text" name="" id="address2" class="form-control" value="" required="required" title="" placeholder="Số nhà - Tên đường">
+							<input type="text" id="address2" class="form-control" required="required" placeholder="Số nhà - Tên đường" ng-model="newPost.address">
 							<span class="glyphicon glyphicon-home form-control-feedback"></span>	
 						</div>
 					</div>
 					<div class="form-group has-feedback">
 						<label class="control-label col-sm-2 mobile-hidden" for="title">Tiêu đề:</label>
 						<div class="col-sm-10">
-							<input type="text" name="" id="title" class="form-control" value="" required="required" pattern="" title="" placeholder="Bạn muốn bán gì?">
+							<input type="text" id="title" class="form-control" required="required" placeholder="Bạn muốn bán gì?" ng-model="newPost.title">
 							<span class="glyphicon glyphicon-pencil form-control-feedback"></span>	
 						</div>
-					</div>		
+					</div>
 					<div class="form-group has-feedback">
+						<label class="control-label col-sm-2 mobile-hidden" for="title">Loại: </label>
+						<div class="col-sm-10">
+							<select ng-options="category as category.name for category in categories" class="form-control" ng-model="newPost.category">
+							</select>
+						</div>
+					</div>	
+					<div class="form-group has-feedback">
+						<label class="control-label col-sm-2 mobile-hidden" for="title">Giá bán: </label>
+						<div class="col-sm-10">
+							<input type="text" id="title" class="form-control" required="required" placeholder="VND" ng-model="newPost.price">
+							<span class="glyphicon glyphicon-pencil form-control-feedback"></span>
+						</div>
+					</div>				
+					<div class="form-group has-feedback">
+						<label class="control-label col-sm-2 mobile-hidden" for="picture">Ảnh:</label>
+						<div class="col-sm-10 text-center">
+							<button type="button" class="btn btn-default" ng-click="upload()">
+								Upload <span class="caret"></span>
+							</button>
+							<div style="margin-top:10px;">
+								<!-- Show the thumbnail only when the picture is uploaded -->
+								<a href="{{newPost.picture.url}}" class="thumbnail" ng-if="newPost.picture">
+								<!-- the picture is rendered with width: 500 and sharpened -->
+								<img ng-src="{{newPost.picture.url | fpConvert: {filter:'sharpen', w:500} }}">
+								</a>
+							</div>					
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2 mobile-hidden" for="picture">Thêm ảnh khác (tối đa 3 ảnh):</label>
+						<div  class="col-sm-10 text-center">
+							<button type="button" class="btn btn-default" ng-click="uploadMultiple()">
+							Upload <span class="caret"></span>
+							</button>
+							<!-- Show the thumbanil of more pictures -->
+								<div style="margin-top:10px;" ng-repeat="picture in newPost.morePictures">	 <div class="col-md-{{12 / newPost.morePictures.length}}">
+									<a href="{{picture.url}}" class="thumbnail">
+									  <img ng-src="{{picture.url | fpConvert: {filter:'sharpen', w:500} }}">
+									</a>
+								</div>	
+							</div>
+						</div>
+					</div>
+					<!-- <div class="form-group has-feedback">
 						<label class="control-label col-sm-2" for="title">Ảnh:</label>
 						<div class="col-sm-10 center">
 							<div class="fileinput fileinput-new" data-provides="fileinput">
@@ -82,11 +125,11 @@
 							  </div>
 							</div>
 						</div>
-					</div>		
+					</div>		 -->
 					<div class="form-group has-feedback">
 						<label class="control-label col-sm-2 mobile-hidden" for="detai">Mô tả:</label>
 						<div class="col-sm-10">
-							<textarea name="" id="detail" class="form-control" rows="8" required="required" placeholder="Mô tả về sản phẩm này"></textarea>	
+							<textarea name="" id="detail" class="form-control" rows="8" required="required" placeholder="Mô tả về sản phẩm này" ng-model="newPost.description"></textarea>	
 						</div>
 					</div>		
 					<div class="form-group center">

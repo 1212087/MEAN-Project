@@ -22,9 +22,8 @@ module.exports      = function (app) {
         })
     });
 
-    /* ------ Load User theo ID ------ */
+    /* ------ Load User theo Email ------ */
     app.post('/api/user/getUserByEmail', function(req, res){
-        console.log(req.body.email);
         user.findOne({email: req.body.email}, function(err, user){
             if(err){
                 res.status(500);
@@ -38,6 +37,20 @@ module.exports      = function (app) {
         })
     })
 
+    /* ------ Load user theo ID ------ */
+    app.post('/api/user/getByID', function(req, res){
+        user.findById(req.body.id, function(err, user){
+            
+            if(err){
+                res.status(404);
+                res.send("Không tìm thấy user");
+            }
+            else{
+                res.status(200);
+                res.json(user);
+            }
+        })
+    })
     /* ------ Đăng ký mới user ------*/
     app.post('/api/user/register', passport.authenticate('register'), function (req, res) {
         console.log('Get register request: ' + req.body.email);

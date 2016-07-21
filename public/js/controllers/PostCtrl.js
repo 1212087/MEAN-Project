@@ -1,21 +1,31 @@
 angular.module('PostCtrl', [])
-.controller('PostCtrl', ['$scope','$rootScope', '$window','User', 'Province' , function ($scope, $rootScope, $window,  User, Province) {
-	// "use strict";
-	$scope.user = {};
-	User.getByEmail($window.sessionStorage)
-	.success(function(response){
-		$scope.user = response;
+.controller('PostCtrl', ['$scope', '$window', '$state', 'Post', 'User', 'flash', function ($scope, $window, $state, Post, User, flash) {
+	$scope.currentPost = {
+		id: Post.getCurrentPost()
+	}
+	$scope.previousPosts = Post.getPreviousPosts();
+	if(!$scope.currentPost){
+		$state.go('home');
+		flash.error = "Có lỗi xảy ra";
+	}
+	Post.getById($scope.currentPost)
+	.success(function(resPost){
+		$scope.post = resPost;
+		$scope.user = {
+			id: resPost.userId
+		}
+		User.getById($scope.user)
+		.success(function(resUser){
+			$scope.user = resUser;
+			console.log($scope.user);
+		})
+		.error(function(error) {
+			/* Act on the event */
+			flash.error = error;
+		});
 	})
 	.error(function(error) {
 		/* Act on the event */
-		console.log(error);
+		flash.error = error;
 	});
-	Province.get()
-	.success(function(response){
-		$scope.provinces = response;
-	})
-	.error(function(error){
-
-		console.log(error);
-	})
-}]);
+}])

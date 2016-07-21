@@ -15,6 +15,9 @@ angular.module('userService',[])
         },
         getByEmail: function(user){
             return $http.post('/api/user/getUserByEmail', user);
+        },
+        getById: function(user){
+            return $http.post('/api/user/getById', user);
         }
     }
 }])

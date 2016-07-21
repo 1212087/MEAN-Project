@@ -1,6 +1,7 @@
 var province    = require('./province');
 var user        = require('./user');
 var post 		= require('./post');
+var category    = require('./category')
 var mongoose    = require('mongoose');
 
 
@@ -11,7 +12,8 @@ module.exports = function (app) {
     user(app);
     // Quản lý post
     post(app);
-    
+    // Quản lý category
+    category(app);
     app.get('*', function (req, res){
         res.sendfile('public/index.html');
     });
