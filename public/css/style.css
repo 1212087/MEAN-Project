@@ -19,6 +19,15 @@ a {
 textarea {
 	resize: none;
 }
+
+.image a{
+	width: 100%;
+}
+
+img{
+	width: 100%;
+	height: auto;
+}
 /* image 100x100 */
 .image-100 img {
 	width: 100px;
@@ -40,12 +49,12 @@ textarea {
 	max-width: 200px;
 	max-height: 200px;
 }
-/*image 250x250*/
-.image- img {
-	width: 200px;
-	height: 200px;
-	max-width: 200px;
-	max-height: 200px;
+/*image 300x300*/
+.image-300 img {
+	width: 300px;
+	height: auto px;
+	max-width: 300px;
+	max-height: 300px;
 }
 
 .inline {
@@ -183,7 +192,7 @@ textarea {
 	.search-input {
 		float: left;
 		margin-bottom: 2px;
-		width: 74%;
+		/*width: 74%;*/
 	}
 
 	.search-input-group {
@@ -515,12 +524,13 @@ textarea {
 	.search-input-group {
 		margin-top: 10px !important;
 		margin-bottom: 10px !important;
-		padding-right: 0px !important;
+		padding-right: 10px !important;
 	}
 
 	.search-input {
 		float: left;
-		width: 88%;
+		/*width: 88%;*/
+		padding-right: 15px;
 	}
 	.search-option-group {
 		margin-bottom: 10px !important;
@@ -606,7 +616,7 @@ textarea {
 
 	.post-info table img
 	{
-		width: 400px;
+		width: auto;
 		height: 400px;
 	}
 

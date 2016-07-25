@@ -1,6 +1,24 @@
 angular.module('userService',[])
-.factory('User', ['$http', function($http){
+.factory('User', ['$http', '$window', function($http, $window){
     return {
+        getCurrentUser: function(){
+            if(!$.isEmptyObject($window.sessionStorage)){
+                if(!$.isEmptyObject($window.sessionStorage.getItem('_id'))){
+                    return $window.sessionStorage.getItem('_id');
+                }
+                else
+                    return null;
+            }
+            else{
+                return null;
+            }
+        },
+        setCurrentUser: function(value){
+            if(value==null)
+                delete $window.sessionStorage._id;
+            else
+                $window.sessionStorage.setItem('_id', value);
+        },
         register: function(user) {
             return $http.post('/api/user/register', user);
         },

@@ -15,11 +15,18 @@
 					
 					<div class="row no-margin">
 						<div class="col-sm-12">
-							<input type="text" name="email" id="inputEmail" class="form-control" required="required" title="Email/Phone" placeholder="Email/Số điện thoại" ng-model="user.email" ng-click="warningEmailInput()"> <br>
+							<input type="text" name="email" id="inputEmail" class="form-control" required="required" title="Email/Phone" placeholder="Email" ng-model="user.email" ng-click="warningEmailInput()"> <br>
 							<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 						</div>
 					</div>
 					
+					<div class="row no-margin">
+						<div class="col-sm-12">
+							<input type="tel" class="form-control" required="required" title="Phone" placeholder="Số điện thoại (Liên lạc khi bán hàng)" ng-model="user.phone"> <br>
+							<span class="glyphicon glyphicon-phone form-control-feedback"></span>
+						</div>
+					</div>
+
 					<div class="row no-margin">
 						<div class=" col-sm-12">
 							<input type="password" name="password" id="inputPassword" class="form-control" required="required" title="Password" placeholder="Mật Khẩu" ng-model="user.password"> <br>
@@ -27,7 +34,7 @@
 						</div>
 						
 					</div>
-
+					
 					<div class="row no-margin">
 						<div class=" col-sm-12">
 							<input type="password" name="re-password" id="inputRe-password" class="form-control" required="required" title="Re-password" placeholder="Nhập lại mật khẩu" ng-model="user.repassword"> <br>

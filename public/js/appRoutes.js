@@ -86,6 +86,16 @@ angular.module('appRoutes', [])
 					redirectTo: '/login'
 				}
 			})
+			.state('report', {
+				url: '/report',
+				templateUrl: 'views/post/report.html',
+				controller: 'ReportCtrl',
+				title: 'Báo cáo bài viết',
+				access: {
+					requiredLogin: true,
+					redirectTo: '/login'
+				}
+			})
 			.state('logout',{
 				url: '/logout',
 				controller: 'UserCtrl',
@@ -113,8 +123,8 @@ angular.module('appRoutes', [])
             $httpProvider.interceptors.push('TokenInterceptor');
         }
     )
-    .run(['$rootScope', '$location', '$window', 'AuthenticationService', 'flash',
-        function ($rootScope, $location, $window, AuthenticationService, flash) {
+    .run(['$rootScope', '$location', '$window', '$state' ,'AuthenticationService', 'flash', 'Province', 'Category',
+        function ($rootScope, $location, $window, $state, AuthenticationService, flash, Province, Category) {
         	$rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
         		if($window.sessionStorage._id===undefined || $window.sessionStorage._id===null){
         			$rootScope.isLoggedIn = false;
@@ -122,6 +132,10 @@ angular.module('appRoutes', [])
         		else{
         			$rootScope.isLoggedIn = true;
         		}
+        		if(toState.url =='/' && (Province.getCurrentProvince() != null || Category.getCurrentCategory() != null)){
+        			// $location.path('/home');
+        		}
+
                 if (toState != null && toState.access != null && toState.access.requiredLogin
                     && !$rootScope.isLoggedIn) {
                 	flash.error = "Bạn phải đăng nhập để truy cập trang này!";

@@ -3,7 +3,11 @@ angular.module('PostCtrl', [])
 	$scope.currentPost = {
 		id: Post.getCurrentPost()
 	}
+
+	$scope.showPhone = false;
 	$scope.previousPosts = Post.getPreviousPosts();
+	console.log($scope.previousPosts);
+
 	if(!$scope.currentPost){
 		$state.go('home');
 		flash.error = "Có lỗi xảy ra";
@@ -17,7 +21,6 @@ angular.module('PostCtrl', [])
 		User.getById($scope.user)
 		.success(function(resUser){
 			$scope.user = resUser;
-			console.log($scope.user);
 		})
 		.error(function(error) {
 			/* Act on the event */
@@ -28,4 +31,23 @@ angular.module('PostCtrl', [])
 		/* Act on the event */
 		flash.error = error;
 	});
+
+	$scope.getPostDetail = function(post){
+		Post.setCurrentPost(post._id);
+		Post.unshiftPreviousPosts(post);
+		$state.reload();
+	}
+
+	$scope.showPhoneClick = function(){
+		if($scope.showPhone == false){
+			$scope.showPhone = true;
+		}
+		else{
+			$scope.showPhone = false;
+		}
+	}
+
+	$scope.reportPost = function(){
+		$state.go('report');
+	}
 }])

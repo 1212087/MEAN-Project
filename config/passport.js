@@ -90,6 +90,7 @@ passport.use('register', new LocalStrategy({
 
                 var newUser = new User();
                 newUser.name= req.body.name;
+                newUser.phone = req.body.phone;
                 newUser.email = email;
                 newUser.password = newUser.generateHash(password);
                 newUser.role = 'user';

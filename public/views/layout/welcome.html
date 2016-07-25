@@ -5,13 +5,13 @@
 			<div class="mobile-hidden image-category center panel">
 				<h3>Hàng nghìn món đồ được rao bán mỗi ngày...</h3>
 				<div class="images">
-					<div class="image center">
-						<a href="">
-							<span class="roll"><h4>Game - Phần Mềm</h4></span>
-							<img class="img-thumbnail" src="img/categories/game-software.jpg" alt="" title="Điện Thoại">
+					<div class="image center" ng-repeat="category in categories|limitTo: categories.length : 1">
+						<a href="" ng-click="ChooseCategory(category)">
+							<span class="roll"><h4>{{category.name}}</h4></span>
+							<img class="img-thumbnail" src="{{category.imageUrl}}" alt="" title="Điện Thoại">
 						</a>
 					</div>
-					<div class="image center">
+					<!-- <div class="image center">
 						<a href="" >
 							<span class="roll"><h4>Mẹ và Bé</h4></span>
 							<img class="img-thumbnail" src="img/categories/me-be.jpg" alt="">
@@ -52,7 +52,7 @@
 							<span class="roll"><h4>Điện Lạnh</h4></span>
 							<img class="img-thumbnail" src="img/categories/dien-lanh.jpg" alt="">
 						</a>
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<div class="main-content">

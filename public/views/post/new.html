@@ -14,16 +14,16 @@
 						</div>
 					</div>
 					<div class="form-group has-feedback">
-						<label class="control-label col-sm-2 mobile-hidden" for="phonenumber">Email:</label>
+						<label class="control-label col-sm-2 mobile-hidden" for="phonenumber">Số điện thoại: </label>
 						<div class="col-sm-10">
-							<input type="email" id="email" class="form-control" required="required" placeholder="Email" value="{{user.email}}" disabled>
+							<input type="tel" id="email" class="form-control" required="required" placeholder="Email" value="{{user.phone}}" disabled>
 							<span class="glyphicon glyphicon-envelope form-control-feedback"></span>	
 						</div>
 					</div>
 					<div class="form-group has-feedback">
-						<label class="control-label col-sm-2 mobile-hidden" for="phonenumber">Số Điện Thoại:</label>
+						<label class="control-label col-sm-2 mobile-hidden" for="phonenumber">SDT khác:</label>
 						<div class="col-sm-10">
-							<input type="tel" name="" id="phonenumber" class="form-control" required="required" placeholder="Số Điện Thoại" ng-model="newPost.phone">
+							<input type="tel" name="" id="phonenumber" class="form-control" placeholder="Số Điện Thoại" ng-model="newPost.phone">
 							<span class="glyphicon glyphicon-phone-alt form-control-feedback"></span>	
 						</div>
 					</div>
@@ -32,7 +32,7 @@
 						<label class="control-label col-sm-2 mobile-hidden" for="address">Địa chỉ:</label>
 						<div id="address">
 							<div class="col-sm-5">
-								<select ng-options="province as province.name for province in provinces" class="form-control" ng-model="newPost.province" ng-change="provinceChange()">
+								<select ng-options="province as province.name for province in provinces | limitTo:provinces.length:1" class="form-control" ng-model="newPost.province" ng-change="provinceChange()">
 								</select>
 							</div>
 							<div class="col-sm-5">
@@ -59,7 +59,7 @@
 					<div class="form-group has-feedback">
 						<label class="control-label col-sm-2 mobile-hidden" for="title">Loại: </label>
 						<div class="col-sm-10">
-							<select ng-options="category as category.name for category in categories" class="form-control" ng-model="newPost.category">
+							<select ng-options="category as category.name for category in categories|limitTo: categories.length : 1" class="form-control" ng-model="newPost.category">
 							</select>
 						</div>
 					</div>	

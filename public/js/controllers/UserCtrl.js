@@ -20,7 +20,7 @@ angular.module('UserCtrl', [])
                 $scope.Process = false;
                 flash.success = 'Bạn đã đăng nhập thành công!';
                 setTimeout(function(){
-                    $state.go('home');
+                    $state.go('welcome');
                 }, 500);
                 console.log($scope.isLoggedIn);
             })
@@ -88,6 +88,8 @@ angular.module('UserCtrl', [])
             delete $window.sessionStorage.email;
             delete $window.sessionStorage.name;
             delete $window.sessionStorage.provinceId;
+            delete $window.localStorage.currentPost;
+            delete $window.localStorage.previousPosts;
             flash.success = data;
             setTimeout(function(){
                 $state.go('login');

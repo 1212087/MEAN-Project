@@ -11,6 +11,7 @@ var myApp = angular.module('myApp', [
 	'angular-flash.service',
 	'angular-flash.flash-alert-directive',
 	'angularUtils.directives.dirPagination',
+	'ui.bootstrap',
 	'ngCookies',
 	'appRoutes',
 	'WelcomeCtrl',
@@ -19,11 +20,13 @@ var myApp = angular.module('myApp', [
 	'AboutCtrl',
 	'NewPostCtrl',
 	'PostCtrl',
+	'ReportCtrl',
 	'provinceService',
 	'userService',
 	'authService',
 	'categoryService',
-	'postService'
+	'postService',
+	'reportService'
 ])
 
 .config(['flashProvider',function(flashProvider) {

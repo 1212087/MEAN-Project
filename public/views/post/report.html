@@ -1,0 +1,47 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-9">
+			<div class="panel panel-default center">
+				<!-- Default panel contents -->
+				<div class="panel-heading"><h3>Báo cáo bài viết</h3></div>
+			
+				<!-- Table -->
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<tbody>
+							<tr>
+								<td colspan="" rowspan="" headers=""><b>Tiêu đề: </b></td>
+								<td><b>{{post.title}}</b></td>
+							</tr>
+							<tr>
+								<td colspan="" rowspan="2" headers=""><b>Nội dung bài viết: </b></td>
+								<td colspan="" rowspan="" headers="" class="image-300"><img src="{{post.picture.url}}" alt=""></td>
+							</tr>
+							<tr>
+								<td colspan="" rowspan="" headers="">{{post.description}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<form class="form-horizontal" role="form" ng-submit="SubmitReport()">
+						<div class="form-group">
+							<div class="col-sm-3">
+								<b>Lý do báo cáo: </b>
+							</div>
+							<div class="col-sm-9">
+								<textarea name="" class="form-control" ng-model=reason required="required"></textarea>
+							</div>		
+						</div>
+				
+						
+				
+						<div class="form-group">
+							<div class="col-sm-10 col-sm-offset-2">
+								<button type="submit" class="btn btn-primary">Gửi báo cáo</button>
+							</div>
+						</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>					
