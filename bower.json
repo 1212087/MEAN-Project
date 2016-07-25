@@ -24,6 +24,7 @@
     "angular-flash": "^0.1.14",
     "angular-cookies": "^1.5.7",
     "angular-filepicker": "^1.1.4",
-    "angularUtils-pagination": "angular-utils-pagination#^0.11.1"
+    "angularUtils-pagination": "angular-utils-pagination#^0.11.1",
+    "angular-bootstrap": "^2.0.0"
   }
 }

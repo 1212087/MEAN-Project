@@ -8,6 +8,10 @@ var Schema = mongoose.Schema ({
         type: String,
         required: true
     },
+    phoneNumber: {
+        type: String,
+        required: false
+    },
     userId: {
         type: ObjectId,
         required: true

@@ -3,11 +3,16 @@ var bcrypt = require('bcryptjs');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var Schema = mongoose.Schema ({
+    
+    name: {
+        type: String,
+        required: true
+    },
     email: {
         type: String,
         required: true
     },
-    name: {
+    phone: {
         type: String,
         required: true
     },

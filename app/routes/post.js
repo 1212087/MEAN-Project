@@ -7,6 +7,7 @@ module.exports = function (app) {
 		var newPost = new post;
 		newPost.userId = req.body.userId;
 		newPost.title = req.body.title;
+		newPost.phoneNumber = req.body.phone;
 		newPost.province = req.body.province;
 		newPost.category = req.body.category;
 		newPost.description = req.body.description;
@@ -67,6 +68,21 @@ module.exports = function (app) {
 		post.find({'category._id':req.body.id}, null,  {sort:'-lastUpdateDate'}, function(err, posts){
 			if(err){
 				console.log('Error while getting post by Category: '+ err);
+				res.status(500);
+				res.send('Không tìm thấy bài viết');
+			}
+			else{
+				res.status(200);
+				res.json(posts);
+			}
+		})
+	})
+
+	app.post('/api/post/getByProvinceAndCategory', function(req, res){
+		console.log('province: '+ req.body.currentProvince.id + 'category: '+req.body.currentCategory.id);
+		post.find({'province._id': req.body.currentProvince.id, 'category._id':req.body.currentCategory.id}, function(err, posts){
+			if(err){
+				console.log('Error while getting posts by Province ' + req.body.currentProvince.id + ' and Category ' + req.body.currentCategory.id);
 				res.status(500);
 				res.send('Không tìm thấy bài viết');
 			}
