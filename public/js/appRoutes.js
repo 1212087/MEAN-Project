@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 angular.module('appRoutes', [])
-	.config(['$stateProvider', '$urlRouterProvider', '$locationProvider' ,function($stateProvider, $urlRouterProvider, $locationProvider) {
+	.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
 		/* Xử lý URL not found/404 error */
 		$urlRouterProvider.otherwise('/views/layout/404.html');
 		$urlRouterProvider.when('/_=_', '/');
@@ -96,18 +96,41 @@ angular.module('appRoutes', [])
 					redirectTo: '/login'
 				}
 			})
-			.state('logout',{
+			.state('logout', {
 				url: '/logout',
 				controller: 'UserCtrl',
 				access: {
 					requiredLogin: false
 				}
 			})
+			.state('account', {
+				url: '/account',
+				controller: 'AccountCtrl',
+				views: {
+					'': {
+						templateUrl: '/views/manage/index.html'
+					},
+					'previousPosts': {
+						templateUrl: '/views/layout/previousPosts.html'
+					}
+				},
+				access: {
+					requiredLogin: true
+				}
+			})
+			.state('password', {
+				url: '/password',
+				controller: 'AccountCtrl',
+				templateUrl: 'views/manage/password.html',
+				access: {
+					requiredLogin: true
+				}
+			})
 			.state('404', {
 				url: '/404',
 				templateUrl: 'views/layout/404.html',
 				title: "404 - Không tìm thấy trang yêu cầu",
-				access : {
+				access: {
 					requiredLogin: false
 				}
 			});
@@ -119,43 +142,41 @@ angular.module('appRoutes', [])
 		$locationProvider.hashPrefix('!');
 	}])
 	.config(
-        function ($httpProvider) {
-            $httpProvider.interceptors.push('TokenInterceptor');
-        }
-    )
-    .run(['$rootScope', '$location', '$window', '$state' ,'AuthenticationService', 'flash', 'Province', 'Category',
-        function ($rootScope, $location, $window, $state, AuthenticationService, flash, Province, Category) {
-        	$rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
-        		if($window.sessionStorage._id===undefined || $window.sessionStorage._id===null){
-        			$rootScope.isLoggedIn = false;
-        		}
-        		else{
-        			$rootScope.isLoggedIn = true;
-        		}
-        		if(toState.url =='/' && (Province.getCurrentProvince() != null || Category.getCurrentCategory() != null)){
-        			// $location.path('/home');
-        		}
+		function($httpProvider) {
+			$httpProvider.interceptors.push('TokenInterceptor');
+		}
+	)
+	.run(['$rootScope', '$location', '$window', '$state', 'AuthenticationService', 'flash', 'Province', 'Category',
+		function($rootScope, $location, $window, $state, AuthenticationService, flash, Province, Category) {
+			$rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+				if ($window.sessionStorage._id === undefined || $window.sessionStorage._id === null) {
+					$rootScope.isLoggedIn = false;
+				} else {
+					$rootScope.isLoggedIn = true;
+				}
+				if (toState.url == '/' && (Province.getCurrentProvince() !== null || Category.getCurrentCategory() !== null)) {
+					$location.path('/home');
+				}
 
-                if (toState != null && toState.access != null && toState.access.requiredLogin
-                    && !$rootScope.isLoggedIn) {
-                	flash.error = "Bạn phải đăng nhập để truy cập trang này!";
-                    $location.path('/login');
-                } 
-                if (toState != null && toState.access != null && toState.access.requiredLogout
-                    && $rootScope.isLoggedIn) {
-                	flash.error = "Bạn phải đăng xuất trước khi truy cập trang này!";
-                	$location.path('/home');
-                }
-                if(toState.url == '/register' && !$rootScope.isLoggedIn){
-                	flash.warn = 'Email được dùng để khôi phục tài khoản, vui lòng cung cấp email chính xác của bạn!'
-                }
-                // if(toState.url == '/welcome' && !$rootScope.isLoggedIn){
-                // 	flash.warn = 'Email được dùng để khôi phục tài khoản, vui lòng cung cấp email chính xác của bạn!'
-                // }
-                // console.log(toState.url);
-                // console.log('requiredLogin: ' + toState.access.requiredLogin);
-                // console.log('requiredLogout: ' + toState.access.requiredLogout);
-                // console.log('Logged in: '+ $rootScope.isLoggedIn);
-                // console.log('session user: ' + $window.sessionStorage);
-        	});
-    	}]);
+				if (toState !== null && toState.access !== null && toState.access.requiredLogin && !$rootScope.isLoggedIn) {
+					flash.error = "Bạn phải đăng nhập để truy cập trang này!";
+					$location.path('/login');
+				}
+				if (toState !== null && toState.access !== null && toState.access.requiredLogout && $rootScope.isLoggedIn) {
+					flash.error = "Bạn phải đăng xuất trước khi truy cập trang này!";
+					$location.path('/home');
+				}
+				if (toState.url == '/register' && !$rootScope.isLoggedIn) {
+					flash.warn = 'Email được dùng để khôi phục tài khoản, vui lòng cung cấp email chính xác của bạn!';
+				}
+				// if(toState.url == '/welcome' && !$rootScope.isLoggedIn){
+				// 	flash.warn = 'Email được dùng để khôi phục tài khoản, vui lòng cung cấp email chính xác của bạn!'
+				// }
+				// console.log(toState.url);
+				// console.log('requiredLogin: ' + toState.access.requiredLogin);
+				// console.log('requiredLogout: ' + toState.access.requiredLogout);
+				// console.log('Logged in: '+ $rootScope.isLoggedIn);
+				// console.log('session user: ' + $window.sessionStorage);
+			});
+		}
+	]);

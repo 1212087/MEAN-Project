@@ -23,7 +23,7 @@ angular.module('NewPostCtrl', [])
 	.error(function(error){
 
 		console.log(error);
-	})
+	});
 
 	Category.get()
 	.success(function(resCategory){
@@ -32,12 +32,12 @@ angular.module('NewPostCtrl', [])
 	})
 	.error(function(error){
 		console.log(error);
-	})
+	});
 
 	$scope.provinceChange = function(){
 		console.log($scope.newPost.province);
 		console.log($scope.newPost.province._id);
-	}
+	};
 
 	$scope.submitNewPost = function(){
 		if(!$.isEmptyObject($scope.newPost)){
@@ -53,9 +53,9 @@ angular.module('NewPostCtrl', [])
 			.error(function(resError){
 				flash.error = resError;
 				$state.go('new');
-			})
+			});
 		}
-	}
+	};
 
 	//Single file upload, you can take a look at the options
     $scope.upload = function(){

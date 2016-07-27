@@ -1,0 +1,17 @@
+<div class="panel mobile-hidden">
+	<h3 class="center">Bài đăng vừa xem</h3>
+	<div class="container-fluid">
+		<div class="row" style="padding: 5px 5px 5px 5px; margin-top: 10px; background-color: #EEEEEE; border-radius: 10px">
+			<strong ng-repeat="post in previousPosts">
+				<div class="col-sm-4 image no-padding">
+					<a href="" ng-click="getPostDetail(post)"><img class="img-rounded" ng-src="{{post.picture.url}}" alt="Image"></a>
+				</div>
+				<div class="col-sm-8">
+					<a href="" ng-click="getPostDetail(post)" ><b>{{post.title}}</b></a>
+					<br>
+					<b class="price">{{post.price|number:0}} VND</b>
+				</div>
+			</strong>
+		</div>
+	</div>
+</div>

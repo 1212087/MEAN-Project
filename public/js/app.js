@@ -21,6 +21,7 @@ var myApp = angular.module('myApp', [
 	'NewPostCtrl',
 	'PostCtrl',
 	'ReportCtrl',
+	'AccountCtrl',
 	'provinceService',
 	'userService',
 	'authService',
@@ -35,7 +36,8 @@ var myApp = angular.module('myApp', [
 	flashProvider.successClassnames.push('alert-success');
 	flashProvider.infoClassnames.push('alert-info');
 }])
+
 .config(['filepickerProvider', function (filepickerProvider) {
 	filepickerProvider.setKey('AHBdUjo0MS0yyWyOgcqFUz');
-}])
+}]);
 
