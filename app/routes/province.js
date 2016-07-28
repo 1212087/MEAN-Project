@@ -1,17 +1,25 @@
 var province = require('../models/Province');
 
-module.exports = function (app) {
-    app.get('/api/province/list', function (req, res) {
-        console.log('Get loadProvince request');
-        province.find(function(err, doc){
-            if(err)
-            {
+module.exports = function(app) {
+    app.get('/api/province/list', function(req, res) {
+        province.find(function(err, doc) {
+            if (err) {
                 console.log('Error:' + err);
-            }
-            else{
+            } else {
                 res.json(doc);
-                console.log('Provices sent!');
             }
-        })
+        });
+    });
+
+    app.post('/api/province/getById', function(req, res) {
+        province.findById(req.body.id, function(err, province) {
+            if (err) {
+                res.status(500);
+                res.send("Lỗi!");
+            } else {
+                res.status(200);
+                res.json(province);
+            }
+        });
     });
 };

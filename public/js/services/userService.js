@@ -37,6 +37,9 @@ angular.module('userService', [])
             },
             changePassword: function(password){
                 return $http.post('/api/user/changePassword', password);
+            },
+            Update: function(user){
+                return $http.post('/api/user/update', user);
             }
         };
     }]);

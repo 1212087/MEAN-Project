@@ -36,14 +36,10 @@ var Schema = mongoose.Schema ({
         required: false,
         default: null
     },
-    couty: {
+    coutyId: {
         type: ObjectId,
         required: false,
         default: null
-    }, 
-    status: {
-        type: Number,
-        default: 0
     },
     creationDate: {
         type: Date,

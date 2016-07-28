@@ -175,4 +175,32 @@ module.exports = function(app) {
             }
         });
     });
+
+    //Update 
+    app.post('/api/user/update', function(req, res) {
+        user.findById(req.body._id, function(err, doc) {
+            if (err) {
+                console.log(err);
+                res.status(500);
+                res.send("Lỗi");
+            } else {
+                doc.name = req.body.name;
+                doc.email = req.body.email;
+                doc.phone = req.body.phone;
+                doc.address = req.body.address;
+                doc.provinceId = req.body.provinceId;
+                doc.coutyId = req.body.coutyId;
+                doc.save(function(error) {
+                    if (error) {
+                        console.log(error);
+                        res.status(500);
+                        res.send("Lỗi khi lưu thông tin");
+                    } else {
+                        res.status(200);
+                        res.send("Lưu thông tin thành công!");
+                    }
+                });
+            }
+        });
+    });
 };

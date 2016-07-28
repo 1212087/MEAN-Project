@@ -3,12 +3,15 @@ var user        = require('./user');
 var post 		= require('./post');
 var category    = require('./category');
 var report      = require('./report');
+var couty       = require('./couty');
 var mongoose    = require('mongoose');
 
 
 module.exports = function (app) {
     // Quản lý province
     province(app);
+    // Quản lý couty
+    couty(app);
     // Quản lý user
     user(app);
     // Quản lý post

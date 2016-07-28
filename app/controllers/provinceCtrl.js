@@ -12,9 +12,9 @@
 // }
 
 var restful = require('node-restful');
-module.exports = function (app, route) {
+module.exports = function(app, route) {
     // Setup the Controller for REST
-    var rest = restful.model (
+    var rest = restful.model(
         'Province',
         app.models.Province
     ).methods(['get', 'push', 'post', 'delete']);

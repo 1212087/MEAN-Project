@@ -30,7 +30,7 @@ angular.module('appRoutes', [])
 			})
 			.state('login', {
 				url: '/login',
-				templateUrl: 'views/account/login.html',
+				templateUrl: 'views/user/login.html',
 				controller: 'UserCtrl',
 				title: 'Đăng nhập',
 				access: {
@@ -40,7 +40,7 @@ angular.module('appRoutes', [])
 			})
 			.state('register', {
 				url: '/register',
-				templateUrl: 'views/account/register.html',
+				templateUrl: 'views/user/register.html',
 				controller: 'UserCtrl',
 				title: 'Đăng ký',
 				access: {
@@ -50,7 +50,7 @@ angular.module('appRoutes', [])
 			})
 			.state('forget_password', {
 				url: '/forget',
-				templateUrl: 'views/account/forget.html',
+				templateUrl: 'views/user/forget.html',
 				controller: 'UserCtrl',
 				title: 'Quên mật khẩu',
 				access: {
@@ -124,6 +124,22 @@ angular.module('appRoutes', [])
 				templateUrl: 'views/manage/password.html',
 				access: {
 					requiredLogin: true
+				}
+			})
+			.state('userinfo', {
+				url: '/userinfo',
+				controller: 'AccountCtrl',
+				templateUrl: 'views/manage/userinfo.html',
+				access: {
+					requiredLogin: true
+				}
+			})
+			.state ('test',{
+				url: '/test',
+				controller: 'AccountCtrl',
+				templateUrl: '/views/manage/test.html',
+				access: {
+					requiredLogin: false
 				}
 			})
 			.state('404', {

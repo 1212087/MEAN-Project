@@ -22,7 +22,7 @@ var myApp = angular.module('myApp', [
 	'PostCtrl',
 	'ReportCtrl',
 	'AccountCtrl',
-	'provinceService',
+	'locationService',
 	'userService',
 	'authService',
 	'categoryService',
