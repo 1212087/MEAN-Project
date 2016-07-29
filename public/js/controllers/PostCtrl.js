@@ -4,16 +4,15 @@ angular.module('PostCtrl', [])
 		id: Post.getCurrentPost()
 	};
 
-	$scope.currentUser = User.getCurrentUser();
-
-	$scope.showPhone = false;
-	$scope.previousPosts = Post.getPreviousPosts();
-	console.log($scope.previousPosts);
-
 	if(!$scope.currentPost){
 		$state.go('home');
 		flash.error = "Có lỗi xảy ra";
 	}
+
+	$scope.currentUser = User.getCurrentUser();
+
+	$scope.showPhone = false;
+	$scope.previousPosts = Post.getPreviousPosts();
 
 	Post.getById($scope.currentPost)
 	.success(function(resPost){

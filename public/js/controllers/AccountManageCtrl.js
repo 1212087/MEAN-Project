@@ -1,5 +1,5 @@
-angular.module('AccountCtrl', [])
-	.controller('AccountCtrl', ['$scope', '$state', 'User', 'Category', 'Post', 'Province', 'Couty', 'flash', function($scope, $state, User, Category, Post, Province, Couty, flash) {
+angular.module('AccountManageCtrl', [])
+	.controller('AccountManageCtrl', ['$scope', '$state', 'User', 'Category', 'Post', 'Province', 'Couty', 'flash', function($scope, $state, User, Category, Post, Province, Couty, flash) {
 		$scope.currentUser = {
 			id: User.getCurrentUser()
 		};
@@ -17,6 +17,7 @@ angular.module('AccountCtrl', [])
 							for (var i = resProvince.length - 1; i >= 0; i--) {
 								if (resProvince[i]._id == $scope.user.provinceId) {
 									$scope.userProvince = resProvince[i];
+									console.log($scope.userProvince);
 									break;
 								}
 							}
@@ -71,7 +72,7 @@ angular.module('AccountCtrl', [])
 					})
 					.error(function(error) {
 						/* Act on the event */
-						flash.error = error;
+						flash.error =error;
 					});
 			}
 		};
@@ -116,5 +117,9 @@ angular.module('AccountCtrl', [])
 						flash.error = error;
 					});
 			}
+		};
+
+		$scope.cancel = function(){
+			$state.reload();
 		};
 	}]);

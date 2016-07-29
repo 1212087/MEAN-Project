@@ -1,0 +1,95 @@
+<div class="container-fluid">
+	<div id="content">
+		<div class="row">
+			<div class="col-sm-12 col-lg-9 new-post">
+				<form class="form-horizontal" role="form" name="form" ng-submit="UpdatePost()">
+					<div class="form-group center">
+						<legend>Chỉnh Sửa Bài Viết</legend>
+					</div>
+					<div class="form-group has-feedback">
+						<label class="control-label col-sm-2 mobile-hidden" for="title">Tiêu đề:</label>
+						<div class="col-sm-10">
+							<input type="text" id="title" class="form-control" required="required" ng-model="currentPost.title" >
+							<span class="glyphicon glyphicon-pencil form-control-feedback"></span>	
+						</div>
+					</div>
+					<div class="form-group has-feedback">
+						<label class="control-label col-sm-2 mobile-hidden" for="phonenumber">SDT liên lạc:</label>
+						<div class="col-sm-10">
+							<input type="tel" name="" id="phonenumber" class="form-control" placeholder="Số Điện Thoại" ng-model="currentPost.phoneNumber">
+							<span class="glyphicon glyphicon-phone-alt form-control-feedback"></span>	
+						</div>
+					</div>
+						
+					<div class="form-group has-feedback">
+						<label class="control-label col-sm-2 mobile-hidden" for="address">Địa chỉ bán:</label>
+						<div id="address">
+							<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+								<select ng-model="postProvince" ng-options="province.name for province in provinces|limitTo:provinces.length:1" id="province" class="form-control" required="required">
+								</select>
+							</div>
+							<div class="col-sm-5">
+								<select ng-model="postCouty" ng-options="couty as couty.name for couty in couties" class="form-control">
+								</select>
+							</div>			
+						</div>
+					</div>
+					<div class="form-group has-feedback">
+						<label class="control-label col-sm-2 mobile-hidden" for="address2"></label>
+						<div class="col-sm-10">
+							<input type="text" id="address2" class="form-control" required="required" placeholder="Số nhà - Tên đường" ng-model="currentPost.address">
+							<span class="glyphicon glyphicon-home form-control-feedback"></span>	
+						</div>
+					</div>
+					<div class="form-group has-feedback">
+						<label class="control-label col-sm-2 mobile-hidden" for="title">Loại: </label>
+						<div class="col-sm-10">
+							<select ng-model="postCategory" ng-options="category as category.name for category in categories|limitTo: categories.length : 1" class="form-control">
+							</select>
+						</div>
+					</div>	
+					<div class="form-group has-feedback">
+						<label class="control-label col-sm-2 mobile-hidden" for="title">Giá bán: </label>
+						<div class="col-sm-10">
+							<input type="number" id="title" class="form-control" required="required" placeholder="VND" ng-model="currentPost.price">
+							<span class="glyphicon glyphicon-pencil form-control-feedback"></span>
+						</div>
+					</div>			
+					<div class="form-group has-feedback">
+						<label class="control-label col-sm-2 mobile-hidden" for="picture">Ảnh:</label>
+						<div class="col-sm-10 text-center">
+							<div style="margin-top:10px;">
+								<!-- Show the thumbnail only when the picture is uploaded -->
+								<a href="{{currentPost.picture.url}}" class="thumbnail" ng-if="currentPost.picture">
+
+								<!-- the picture is rendered with width: 500 and sharpened -->
+								<img ng-src="{{currentPost.picture.url | fpConvert: {filter:'sharpen', w:500} }}">
+								</a>
+							</div>		
+							<button type="button" class="btn btn-default" ng-click="upload()">
+								Upload <span class="caret"></span>
+							</button>			
+						</div>
+					</div>
+					<div class="form-group has-feedback">
+						<label class="control-label col-sm-2 mobile-hidden" for="detai">Mô tả:</label>
+						<div class="col-sm-10">
+							<textarea name="" id="detail" class="form-control" rows="8" required="required" placeholder="Mô tả về sản phẩm này" ng-model="currentPost.description"></textarea>	
+						</div>
+					</div>		
+					<div class="form-group center">
+						<div class="col-sm-12">
+							<button type="submit" class="btn btn-success">Hoàn tất</button>
+							<button type="button" class="btn btn-primary">Trở lại</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-lg-3">
+				<div class="panel mobile-hidden center">
+					<h3>Bài đăng vừa xem</h3>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>

@@ -119,27 +119,35 @@ angular.module('appRoutes', [])
 				}
 			})
 			.state('password', {
-				url: '/password',
-				controller: 'AccountCtrl',
+				url: '/PasswordManage',
+				controller: 'AccountManageCtrl',
 				templateUrl: 'views/manage/password.html',
 				access: {
 					requiredLogin: true
 				}
 			})
 			.state('userinfo', {
-				url: '/userinfo',
-				controller: 'AccountCtrl',
+				url: '/UserManage',
+				controller: 'AccountManageCtrl',
 				templateUrl: 'views/manage/userinfo.html',
 				access: {
 					requiredLogin: true
 				}
 			})
-			.state ('test',{
-				url: '/test',
-				controller: 'AccountCtrl',
-				templateUrl: '/views/manage/test.html',
+			.state('PostManage', {
+				url: '/PostManage',
+				controller: 'PostManageCtrl',
+				templateUrl: 'views/manage/posts.html',
 				access: {
-					requiredLogin: false
+					requiredLogin: true
+				}
+			})
+			.state('EditPost', {
+				url: '/EditPost',
+				controller: 'PostManageCtrl',
+				templateUrl: 'views/post/edit.html',
+				access: {
+					requiredLogin: true
 				}
 			})
 			.state('404', {

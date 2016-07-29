@@ -1,9 +1,9 @@
-var mongoose    = require('mongoose');
-var ObjectId    = mongoose.Schema.Types.ObjectId;
-var Mixed       = mongoose.Schema.Types.Mixed;
+var mongoose = require('mongoose');
+var ObjectId = mongoose.Schema.Types.ObjectId;
+var Mixed    = mongoose.Schema.Types.Mixed;
 
-var Schema = mongoose.Schema ({
-    
+var Schema = mongoose.Schema({
+
     title: {
         type: String,
         required: true
@@ -20,11 +20,11 @@ var Schema = mongoose.Schema ({
         type: Mixed,
         required: true
     },
-    county: {
+    couty: {
         type: Mixed,
-        required: false
+        required: true
     },
-    address:{
+    address: {
         type: String,
         required: true
     },
@@ -56,6 +56,6 @@ var Schema = mongoose.Schema ({
         type: Date,
         default: Date.now
     }
-})
+});
 
 module.exports = mongoose.model('Post', Schema);

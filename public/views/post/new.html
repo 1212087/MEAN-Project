@@ -33,11 +33,12 @@
 						<div id="address">
 							<div class="col-sm-5">
 								<select ng-options="province as province.name for province in provinces | limitTo:provinces.length:1" class="form-control" ng-model="newPost.province" ng-change="provinceChange()">
+									<option value="">Chọn tỉnh</option>
 								</select>
 							</div>
 							<div class="col-sm-5">
-								<select name="" id="couty" class="form-control" ng-model="newPost.county">
-									<option value="">Quận / Huyện</option>
+								<select ng-options="couty as couty.name for couty in couties" class="form-control" ng-model="newPost.couty">
+									<option value="">Chọn huyện</option>
 								</select>
 							</div>			
 						</div>
@@ -66,7 +67,7 @@
 					<div class="form-group has-feedback">
 						<label class="control-label col-sm-2 mobile-hidden" for="title">Giá bán: </label>
 						<div class="col-sm-10">
-							<input type="text" id="title" class="form-control" required="required" placeholder="VND" ng-model="newPost.price">
+							<input type="number" id="title" class="form-control" required="required" placeholder="VND" ng-model="newPost.price">
 							<span class="glyphicon glyphicon-pencil form-control-feedback"></span>
 						</div>
 					</div>				

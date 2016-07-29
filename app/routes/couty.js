@@ -35,6 +35,6 @@ module.exports = function(app) {
                 res.status(200);
                 res.json(couty);
             }
-        })
-    })
+        });
+    });
 };

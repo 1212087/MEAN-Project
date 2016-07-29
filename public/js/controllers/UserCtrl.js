@@ -100,7 +100,6 @@ angular.module('UserCtrl', [])
                 // AuthenticationService.isAuthenticated = false;
                 // $rootScope.isLoggedIn = false;   
             };
-
             // Xử lý quay lại trang chủ
             $scope.back = function() {
                 $state.go('home');

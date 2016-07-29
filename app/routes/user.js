@@ -180,9 +180,8 @@ module.exports = function(app) {
     app.post('/api/user/update', function(req, res) {
         user.findById(req.body._id, function(err, doc) {
             if (err) {
-                console.log(err);
                 res.status(500);
-                res.send("Lỗi");
+                res.send("Có lỗi xảy ra");
             } else {
                 doc.name = req.body.name;
                 doc.email = req.body.email;
