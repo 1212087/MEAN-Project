@@ -1,4 +1,5 @@
 var post = require('../models/Post');
+var user = require('../models/User');
 var ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = function(app) {
@@ -6,7 +7,7 @@ module.exports = function(app) {
 	/* ------ New Post ------ */
 	/* [Object] Post */
 	app.post('/api/post/NewPost', function(req, res) {
-		console.log(req.body);
+		// console.log(req.body);
 		var newPost = new post;
 		newPost.userId = req.body.userId;
 		newPost.title = req.body.title;
@@ -67,7 +68,7 @@ module.exports = function(app) {
 		}
 	*/
 	app.post('/api/post/getByCategory', function(req, res) {
-		console.log('mã loai: ' + req.body.id);
+		// console.log('mã loai: ' + req.body.id);
 		post.find({
 			'category._id': req.body.id
 		}, null, {
@@ -94,7 +95,7 @@ module.exports = function(app) {
 		}
 	*/
 	app.post('/api/post/getByProvinceAndCategory', function(req, res) {
-		console.log('province: ' + req.body.currentProvince.id + 'category: ' + req.body.currentCategory.id);
+		// console.log('province: ' + req.body.currentProvince.id + 'category: ' + req.body.currentCategory.id);
 		post.find({
 			'province._id': req.body.currentProvince.id,
 			'category._id': req.body.currentCategory.id
@@ -130,22 +131,38 @@ module.exports = function(app) {
 		});
 	});
 
+	/* ------ Get Active Post ------ */
+	app.get('/api/post/getActive', function(req, res) {
+		post.find({status: true},null, {sort: '-lastUpdateDate'}, function(error, posts){
+			if(error) {
+				res.status(500);
+				res.send('Có lỗi xảy ra!');
+			} else if(posts === null | posts.length === 0) {
+				res.status(404);
+				res.send('Không tìm thấy bài viết!');
+			} else {
+				res.status(200);
+				res.json(posts);
+			}
+		});
+	});
 	/* ------ Get posts By postId ------ */
 	/*	{
 			id: postId
 		}
 	*/
 	app.post('/api/post/getById', function(req, res) {
-		post.findById(req.body.id, function(err, post) {
+		console.log(req.body);
+		post.findById(req.body.id, function(err, posts) {
 			if (err) {
 				res.status(500);
 				res.send('Có lỗi xảy ra!');
-			} else if (post.length === 0) {
+			} else if (posts === null || posts.length === 0) {
 				res.status(500);
 				res.send('Không tìm thấy bài viết');
 			} else {
 				res.status(200);
-				res.json(post);
+				res.json(posts);
 			}
 		});
 	});
@@ -159,7 +176,7 @@ module.exports = function(app) {
 	app.post('/api/post/getByUser', function(req, res) {
 		post.find({
 			userId: req.body.id
-		}, function(err, posts) {
+		}, null, {sort: '-lastUpdateDate'}, function(err, posts) {
 			if (err) {
 				res.status(500);
 				res.send("Có lỗi xảy ra!");
@@ -180,7 +197,7 @@ module.exports = function(app) {
 		}
 	*/
 	app.post('/api/post/update', function(req, res) {
-		console.log(req.body);
+		// console.log(req.body);
 		post.findById(req.body._id, function(err, doc) {
 			if (err) {
 				res.status(500);
@@ -208,6 +225,86 @@ module.exports = function(app) {
 						res.send('Lưu chỉnh sửa thành công!');
 					}
 				});
+			}
+		});
+	});
+
+	/* ------ Deactive Post ------ */
+	app.post('/api/post/deactive', function(req, res){
+		user.findById(req.body.userId, function(err, user){
+			if(err) {
+				res.status(500);
+				res.send(err);
+			} else if (user === null || user.length === 0) {
+				res.status(404);
+				res.send('Có lỗi xảy ra!');
+			} else {
+				if(user.role === 'user') {
+					res.status(401);
+					res.send('Bạn không có quyền thực hiện hành động này!');
+				} else {
+					post.findById(req.body._id, function(err, foundPost){
+						if (err) {
+							res.status(500);
+							res.send('Có lỗi xảy ra!');
+						} else if (foundPost === null || foundPost.length === 0) {
+							res.status(404);
+							res.send('Không tìm thấy bài viết!');
+						} else {
+							foundPost.status = false;
+							foundPost.lastUpdateDate = Date.now();
+							foundPost.save(function(err){
+								if(err) {
+									res.status(500);
+									res.send('Lỗi khi lưu trạng thái bài viết');
+								} else {
+									res.status(200);
+									res.send('Thay đổi trạng thái bài viết thành công!');
+								} 
+							});
+						}
+					});
+				}
+			}
+		});
+	});
+
+	/* ------ Active Post ------ */
+	app.post('/api/post/active', function(req, res){
+		user.findById(req.body.userId, function(err, user){
+			if(err) {
+				res.status(500);
+				res.send(err);
+			} else if (user === null || user.length === 0) {
+				res.status(404);
+				res.send('Có lỗi xảy ra!');
+			} else {
+				if(user.role === 'user') {
+					res.status(401);
+					res.send('Bạn không có quyền thực hiện hành động này!');
+				} else {
+					post.findById(req.body._id, function(err, foundPost){
+						if (err) {
+							res.status(500);
+							res.send('Có lỗi xảy ra!');
+						} else if (foundPost === null || foundPost.length === 0) {
+							res.status(404);
+							res.send('Không tìm thấy bài viết!');
+						} else {
+							foundPost.status = true;
+							foundPost.lastUpdateDate = Date.now();
+							foundPost.save(function(err){
+								if(err) {
+									res.status(500);
+									res.send('Lỗi khi lưu trạng thái bài viết');
+								} else {
+									res.status(200);
+									res.send('Thay đổi trạng thái bài viết thành công!');
+								} 
+							});
+						}
+					});
+				}
 			}
 		});
 	});

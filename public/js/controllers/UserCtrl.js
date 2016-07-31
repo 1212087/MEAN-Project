@@ -1,8 +1,24 @@
 angular.module('UserCtrl', [])
-    .controller('UserCtrl', ['$scope', '$rootScope', '$state', 'User', 'flash', '$rootScope', '$cookieStore', '$window', 'AuthenticationService',
-        function($scope, $rootScope, $state, User, flash, $rootScope, $cookieStore, $window, AuthenticationService) {
+    .controller('UserCtrl', ['$scope', '$state', 'User', 'flash', '$rootScope', '$cookieStore', '$window', 'AuthenticationService',
+        function($scope, $state, User, flash, $rootScope, $cookieStore, $window, AuthenticationService) {
             $scope.user = {};
-            // $rootScope.isLoggedIn = AuthenticationService.isAuthenticated;
+
+            $scope.GoToManage = function() {
+                $scope.user = {
+                    _id: User.getCurrentUser()
+                };
+                User.isAdmin($scope.user)
+                    .success(function(res) {
+                        if (res === true) {
+                            $state.go('Admin');
+                        } else {
+                            $state.go('Manage');
+                        }
+                    })
+                    .error(function(error){
+                        flash.error = error;
+                    });
+            };
             // Xử ly user đăng nhập
             $scope.login = function() {
                 if (!$.isEmptyObject($scope.user)) {
@@ -20,14 +36,13 @@ angular.module('UserCtrl', [])
                             $scope.Process = false;
                             flash.success = 'Bạn đã đăng nhập thành công!';
                             setTimeout(function() {
-                                $state.go('welcome');
+                                $state.go('Welcome');
                             }, 500);
-                            console.log($scope.isLoggedIn);
                         })
                         .error(function(response) {
                             console.log(response);
                             flash.error = 'Email hoặc Password không đúng';
-                            $state.go('login');
+                            $state.go('Login');
                         });
                 }
             };
@@ -44,14 +59,14 @@ angular.module('UserCtrl', [])
                             flash.success = 'Đăng ký thành công';
                             console.log(data);
                             setTimeout(function() {
-                                $state.go('login');
+                                $state.go('Login');
                             }, 500);
                         })
                         .error(function(data) {
                             console.log(data);
                             flash.error = 'Email đã được sử dụng, vui lòng đăng ký bằng Email khác!';
                             $scope.Proccess = false;
-                            $state.go('register');
+                            $state.go('Register');
                         });
                 } else {
                     flash.error = "Mật khẩu không trùng khớp, xin nhập lại!";
@@ -67,14 +82,14 @@ angular.module('UserCtrl', [])
                             $scope.user = {};
                             $scope.Process = false;
                             flash.success = 'Chúng tôi đã gửi password đến email của bạn! Vui lòng kiểm tra email';
-                            $state.go('login');
+                            $state.go('Login');
                         })
                         .error(function(data) {
                             /* Act on the event */
                             console.log(data);
                             flash.error = data.error;
                             $scope.Process = false;
-                            $state.go('register');
+                            $state.go('Register');
                         });
                 }
             };
@@ -91,7 +106,7 @@ angular.module('UserCtrl', [])
                         delete $window.localStorage.previousPosts;
                         flash.success = data;
                         setTimeout(function() {
-                            $state.go('login');
+                            $state.go('Login');
                         }, 500);
                     })
                     .error(function(data) {
@@ -102,9 +117,8 @@ angular.module('UserCtrl', [])
             };
             // Xử lý quay lại trang chủ
             $scope.back = function() {
-                $state.go('home');
+                $state.go('Home');
                 flash.info = 'Quay trở lại trang chủ';
             };
-
         }
     ]);

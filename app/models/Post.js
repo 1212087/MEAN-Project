@@ -55,6 +55,10 @@ var Schema = mongoose.Schema({
     lastUpdateDate: {
         type: Date,
         default: Date.now
+    }, 
+    status: {
+        type: Boolean,
+        default: true
     }
 });
 

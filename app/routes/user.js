@@ -152,7 +152,7 @@ module.exports = function(app) {
                 res.status(500);
                 res.send('Có lỗi xảy ra!');
             } else {
-                if (!foundUser.length) {
+                if (foundUser.length !== 0) {
                     if (!foundUser.validPassword(req.body.current)) {
                         res.status(500);
                         res.send("Mật khẩu không chính xác, xin nhập lại!");
@@ -199,6 +199,25 @@ module.exports = function(app) {
                         res.send("Lưu thông tin thành công!");
                     }
                 });
+            }
+        });
+    });
+
+    //Check user if isAdmin
+    app.post('/api/user/isAdmin', function(req, res) {
+        user.findById(req.body._id, function(err, doc) {
+            if (err) {
+                res.status(500);
+                res.send('Có lỗi xảy ra!');
+            } else if (doc.length === 0) {
+                res.status(404);
+                res.send('Không tìm thấy tài khoản!');
+            } else {
+                if (doc.role == 'admin') {
+                    res.send(true);
+                } else {
+                    res.send(false);
+                }
             }
         });
     });

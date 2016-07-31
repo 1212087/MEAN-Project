@@ -9,7 +9,7 @@ angular.module('HomeCtrl', [])
 				$scope.provinces = resProvinces;
 			})
 			.error(function(error) {
-				flash.error = 'Lỗi khi lấy danh sách tỉnh thành';
+				flash.error = error;
 			});
 
 		Category.get()
@@ -17,7 +17,7 @@ angular.module('HomeCtrl', [])
 				$scope.categories = resCategories;
 			})
 			.error(function(error) {
-				flash.error = "Có lỗi khi lấy danh mục bài viết";
+				flash.error = error;
 			});
 
 		// lấy theo vị trí và loại khi có cả 2
@@ -39,7 +39,6 @@ angular.module('HomeCtrl', [])
 		}
 		// chỉ lấy theo tỉnh khi loại == null
 		else if ($scope.currentProvince !== null) {
-			console.log('Lấy theo tỉnh');
 			Post.getByProvince($scope.currentProvince)
 				.success(function(resPosts) {
 					console.log(resPosts);
@@ -47,7 +46,7 @@ angular.module('HomeCtrl', [])
 				})
 				.error(function(error) {
 					/* Act on the event */
-					flash.error = "Có lỗi khi lấy danh sách bài viết theo danh mục!";
+					flash.error = error;
 					// console.log(error);
 				});
 		}
@@ -63,28 +62,28 @@ angular.module('HomeCtrl', [])
 				.error(function(error) {
 					/* Act on the event */
 					// console.log(error);
-					flash.error = "Có lỗi khi lấy danh sách bài viết theo tỉnh thành!";
+					flash.error = error;
 				});
 		}
 
 		// ko có gì -> lấy tất cả post
 		else {
 			console.log('Lấy tất cả');
-			Post.get()
+			Post.getActivePosts()
 				.success(function(resPosts) {
 					$scope.posts = resPosts;
 					console.log(resPosts);
 				})
 				.error(function(error) {
 					// console.log(error);
-					flash.error = "Có lỗi khi lấy danh sách tất cả bài viết!";
+					flash.error = error;
 				});
 		}
 
 		$scope.getPostDetail = function(post) {
 			Post.setCurrentPost(post._id);
 			Post.unshiftPreviousPosts(post);
-			$state.go('post');
+			$state.go('Post');
 		};
 
 		$scope.searchByCategory = function() {

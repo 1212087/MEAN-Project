@@ -65,6 +65,9 @@ angular.module('postService', [])
             get: function() {
                 return $http.get('/api/post/list');
             },
+            getActivePosts: function() {
+                return $http.get('/api/post/getActive');
+            },
             getByCategory: function(categoryId) {
                 console.log(categoryId);
                 return $http.post('/api/post/getByCategory', categoryId);
@@ -81,8 +84,17 @@ angular.module('postService', [])
             getByUser: function(user) {
                 return $http.post('/api/post/getByUser', user);
             },
-            update: function(post){
+            //post: all post info
+            update: function(post) {
                 return $http.post('/api/post/update', post);
+            },
+            // data: _id & userId
+            deactive: function(data) {
+                return $http.post('/api/post/deactive', data);
+            },
+            // data: _id & userId
+            active: function(data) {
+                return $http.post('/api/post/active', data);
             }
         };
     }]);

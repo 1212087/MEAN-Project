@@ -21,7 +21,11 @@ var Schema = mongoose.Schema({
 	createDate: {
 		type: Date,
 		default: Date.now,
+	}, 
+	reslovedDate: {
+		type: Date,
+		required: false
 	}
-})
+});
 
 module.exports = mongoose.model('Report', Schema);

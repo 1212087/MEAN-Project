@@ -21,8 +21,10 @@ var myApp = angular.module('myApp', [
 	'NewPostCtrl',
 	'PostCtrl',
 	'ReportCtrl',
+	'AdminCtrl',
 	'AccountManageCtrl',
 	'PostManageCtrl',
+	'NotiCtrl',
 	'locationService',
 	'userService',
 	'authService',
@@ -31,14 +33,13 @@ var myApp = angular.module('myApp', [
 	'reportService'
 ])
 
-.config(['flashProvider',function(flashProvider) {
+.config(['flashProvider', function(flashProvider) {
 	flashProvider.errorClassnames.push('alert-danger');
 	flashProvider.warnClassnames.push('alert-warning');
 	flashProvider.successClassnames.push('alert-success');
 	flashProvider.infoClassnames.push('alert-info');
 }])
 
-.config(['filepickerProvider', function (filepickerProvider) {
+.config(['filepickerProvider', function(filepickerProvider) {
 	filepickerProvider.setKey('AHBdUjo0MS0yyWyOgcqFUz');
 }]);
-

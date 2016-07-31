@@ -10,7 +10,7 @@ angular.module('appRoutes', [])
 		$urlRouterProvider.when('/_=_', '/');
 		/* Thiết lập URL */
 		$stateProvider
-			.state('welcome', {
+			.state('Welcome', {
 				url: '/',
 				templateUrl: 'views/layout/welcome.html',
 				controller: 'WelcomeCtrl',
@@ -19,7 +19,7 @@ angular.module('appRoutes', [])
 					requiredLogin: false
 				}
 			})
-			.state('home', {
+			.state('Home', {
 				url: '/home',
 				templateUrl: 'views/layout/home.html',
 				controller: 'HomeCtrl',
@@ -28,7 +28,7 @@ angular.module('appRoutes', [])
 					requiredLogin: false
 				}
 			})
-			.state('login', {
+			.state('Login', {
 				url: '/login',
 				templateUrl: 'views/user/login.html',
 				controller: 'UserCtrl',
@@ -38,7 +38,7 @@ angular.module('appRoutes', [])
 					requiredLogout: true
 				}
 			})
-			.state('register', {
+			.state('Register', {
 				url: '/register',
 				templateUrl: 'views/user/register.html',
 				controller: 'UserCtrl',
@@ -48,7 +48,7 @@ angular.module('appRoutes', [])
 					requiredLogout: true
 				}
 			})
-			.state('forget_password', {
+			.state('ForgetPassword', {
 				url: '/forget',
 				templateUrl: 'views/user/forget.html',
 				controller: 'UserCtrl',
@@ -58,7 +58,7 @@ angular.module('appRoutes', [])
 					requiredLogout: true
 				}
 			})
-			.state('about', {
+			.state('About', {
 				url: '/about',
 				templateUrl: 'views/about/about.html',
 				controller: 'AboutCtrl',
@@ -67,7 +67,7 @@ angular.module('appRoutes', [])
 					requiredLogin: false
 				}
 			})
-			.state('post', {
+			.state('Post', {
 				url: '/post',
 				templateUrl: 'views/post/post.html',
 				controller: 'PostCtrl',
@@ -76,7 +76,7 @@ angular.module('appRoutes', [])
 					requiredLogin: false
 				}
 			})
-			.state('new', {
+			.state('New', {
 				url: '/new',
 				templateUrl: 'views/post/new.html',
 				controller: 'NewPostCtrl',
@@ -86,7 +86,7 @@ angular.module('appRoutes', [])
 					redirectTo: '/login'
 				}
 			})
-			.state('report', {
+			.state('Report', {
 				url: '/report',
 				templateUrl: 'views/post/report.html',
 				controller: 'ReportCtrl',
@@ -96,29 +96,21 @@ angular.module('appRoutes', [])
 					redirectTo: '/login'
 				}
 			})
-			.state('logout', {
+			.state('Logout', {
 				url: '/logout',
 				controller: 'UserCtrl',
 				access: {
 					requiredLogin: false
 				}
 			})
-			.state('account', {
-				url: '/account',
-				controller: 'AccountCtrl',
-				views: {
-					'': {
-						templateUrl: '/views/manage/index.html'
-					},
-					'previousPosts': {
-						templateUrl: '/views/layout/previousPosts.html'
-					}
-				},
+			.state('Manage', {
+				url: '/manage',
+				templateUrl: '/views/manage/index.html',
 				access: {
 					requiredLogin: true
 				}
 			})
-			.state('password', {
+			.state('Password', {
 				url: '/PasswordManage',
 				controller: 'AccountManageCtrl',
 				templateUrl: 'views/manage/password.html',
@@ -126,7 +118,7 @@ angular.module('appRoutes', [])
 					requiredLogin: true
 				}
 			})
-			.state('userinfo', {
+			.state('UserInfo', {
 				url: '/UserManage',
 				controller: 'AccountManageCtrl',
 				templateUrl: 'views/manage/userinfo.html',
@@ -150,6 +142,32 @@ angular.module('appRoutes', [])
 					requiredLogin: true
 				}
 			})
+			.state('Notification', {
+				url: '/notification',
+				controller: 'NotiCtrl',
+				templateUrl: 'views/manage/notification.html',
+				access: {
+					requiredLogin: true
+				}
+			})
+			.state('Admin', {
+				url: '/admin',
+				controller: 'AdminCtrl',
+				templateUrl: 'views/admin/index.html',
+				access: {
+					requiredLogin: true,
+					requiredAdmin: true
+				}
+			})
+			.state('AdminPosts', {
+				url:'/admin/posts',
+				controller: 'AdminPostsCtrl',
+				templateUrl: 'views/admin/post_manage.html',
+				access: {
+					requiredLogin: true,
+					requiredAdmin: true
+				}
+			})
 			.state('404', {
 				url: '/404',
 				templateUrl: 'views/layout/404.html',
@@ -170,8 +188,8 @@ angular.module('appRoutes', [])
 			$httpProvider.interceptors.push('TokenInterceptor');
 		}
 	)
-	.run(['$rootScope', '$location', '$window', '$state', 'AuthenticationService', 'flash', 'Province', 'Category',
-		function($rootScope, $location, $window, $state, AuthenticationService, flash, Province, Category) {
+	.run(['$rootScope', '$location', '$window', '$state', 'AuthenticationService', 'flash', 'Province', 'Category', 'User',
+		function($rootScope, $location, $window, $state, AuthenticationService, flash, Province, Category, User) {
 			$rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
 				if ($window.sessionStorage._id === undefined || $window.sessionStorage._id === null) {
 					$rootScope.isLoggedIn = false;
@@ -193,14 +211,35 @@ angular.module('appRoutes', [])
 				if (toState.url == '/register' && !$rootScope.isLoggedIn) {
 					flash.warn = 'Email được dùng để khôi phục tài khoản, vui lòng cung cấp email chính xác của bạn!';
 				}
-				// if(toState.url == '/welcome' && !$rootScope.isLoggedIn){
-				// 	flash.warn = 'Email được dùng để khôi phục tài khoản, vui lòng cung cấp email chính xác của bạn!'
-				// }
-				// console.log(toState.url);
-				// console.log('requiredLogin: ' + toState.access.requiredLogin);
-				// console.log('requiredLogout: ' + toState.access.requiredLogout);
-				// console.log('Logged in: '+ $rootScope.isLoggedIn);
-				// console.log('session user: ' + $window.sessionStorage);
+				if (toState.url == '/manage' && $rootScope.isLoggedIn) {
+					User.isAdmin({
+							_id: User.getCurrentUser()
+						})
+						.success(function(res){
+							if(res === true) {
+								$state.go('Admin');
+							}
+						})
+						.error(function(error){
+							flash.error = error;
+						});
+	
+				}
+				if (toState !== null && toState.access !== null && toState.access.requiredAdmin && $rootScope.isLoggedIn) {
+					User.isAdmin({
+							_id: User.getCurrentUser()
+						})
+						.success(function(res){
+							if(res === false) {
+								flash.error = 'Bạn không có quyền truy cập trang này';
+								$state.go('Home');
+							}
+						})
+						.error(function(error){
+							flash.error = error;
+						});
+
+				}
 			});
 		}
 	]);

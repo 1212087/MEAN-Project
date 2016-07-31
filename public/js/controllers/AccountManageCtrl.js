@@ -91,7 +91,7 @@ angular.module('AccountManageCtrl', [])
 				User.changePassword($scope.password)
 					.success(function(res) {
 						flash.success = res;
-						$state.go('account');
+						$state.go('Manage');
 					})
 					.error(function(error) {
 						flash.error = error;

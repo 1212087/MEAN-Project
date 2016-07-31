@@ -40,6 +40,9 @@ angular.module('userService', [])
             },
             Update: function(user){
                 return $http.post('/api/user/update', user);
+            }, 
+            isAdmin: function(user){
+                return $http.post('/api/user/isAdmin', user);
             }
         };
     }]);

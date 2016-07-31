@@ -17,17 +17,17 @@ angular.module('ReportCtrl', [])
 		$scope.SubmitReport = function() {
 			if ($scope.currentUser == $scope.post.userId) {
 				flash.error = "Bạn không thể report bài viết của chính mình!";
-				$state.go('post');
+				$state.go('Post');
 			} else {
 				var report = {
 					UserId: $scope.currentUser,
 					PostId: Post.getCurrentPost(),
-					reason: $scope.reason
+					reason: $scope.reportReason
 				};
 				Report.submit(report)
 					.success(function(res) {
 						flash.success = res;
-						$state.go('home');
+						$state.go('Home');
 					})
 					.error(function(error) {
 						/* Act on the event */

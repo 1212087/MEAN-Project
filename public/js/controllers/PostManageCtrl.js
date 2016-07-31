@@ -22,7 +22,7 @@ angular.module('PostManageCtrl', [])
 					$scope.currentPost = resPost;
 					if ($scope.currentPost.userId != $scope.currentUser) {
 						flash.error = "Bạn không được quyền chỉnh sửa bài viết của người khác";
-						$state.go("home");
+						$state.go("Home");
 					} else {
 						Province.get()
 							.success(function(resProvinces) {

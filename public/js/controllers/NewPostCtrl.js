@@ -4,8 +4,8 @@ angular.module('NewPostCtrl', [])
 		$scope.user = {};
 		$scope.postDetail = {};
 		$scope.newPost = {};
-		if (!$window.sessionStorage) {
-			$state.go('login');
+		if ($.isEmptyObject($window.sessionStorage)) {
+			$state.go('Login');
 		}
 		User.getByEmail($window.sessionStorage)
 			.success(function(response) {
@@ -53,11 +53,11 @@ angular.module('NewPostCtrl', [])
 						console.log(resData);
 						$scope.newPost = {};
 						$scope.form.$setPristine();
-						$state.go('home');
+						$state.go('Home');
 					})
 					.error(function(resError) {
 						flash.error = resError;
-						$state.go('new');
+						$state.go('New');
 					});
 			}
 		};

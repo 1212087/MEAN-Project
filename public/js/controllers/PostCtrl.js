@@ -1,61 +1,79 @@
 angular.module('PostCtrl', [])
-.controller('PostCtrl', ['$scope', '$window', '$state', 'Post', 'User', 'flash', function ($scope, $window, $state, Post, User, flash) {
-	$scope.currentPost = {
-		id: Post.getCurrentPost()
-	};
-
-	if(!$scope.currentPost){
-		$state.go('home');
-		flash.error = "Có lỗi xảy ra";
-	}
-
-	$scope.currentUser = User.getCurrentUser();
-
-	$scope.showPhone = false;
-	$scope.previousPosts = Post.getPreviousPosts();
-
-	Post.getById($scope.currentPost)
-	.success(function(resPost){
-		$scope.post = resPost;
-		$scope.user = {
-			id: resPost.userId
+	.controller('PostCtrl', ['$scope', '$window', '$state', 'Post', 'User', 'flash', function($scope, $window, $state, Post, User, flash) {
+		$scope.currentPost = {
+			id: Post.getCurrentPost()
 		};
-		User.getById($scope.user)
-		.success(function(resUser){
-			$scope.user = resUser;
-		})
-		.error(function(error) {
-			/* Act on the event */
-			flash.error = error;
-		});
-	})
-	.error(function(error) {
-		/* Act on the event */
-		flash.error = error;
-	});
+		$scope.currentUser = User.getCurrentUser();
 
-	$scope.getPostDetail = function(post){
-		Post.setCurrentPost(post._id);
-		Post.unshiftPreviousPosts(post);
-		$state.reload();
-	};
+		$scope.showPhone = false;
+		$scope.previousPosts = Post.getPreviousPosts();
 
-	$scope.showPhoneClick = function(){
-		if($scope.showPhone === false){
-			$scope.showPhone = true;
-		}
-		else{
-			$scope.showPhone = false;
-		}
-	};
-
-	$scope.reportPost = function(){
-		console.log($scope.currentUser);
-		console.log($scope.post.userId);
-		if($scope.currentUser == $scope.post.userId){
-			flash.error = 'Bạn không thể report bài viết của chính mình!';
+		if ($scope.currentPost.id === null) {
+			$state.go('Home');
+			flash.error = "Có lỗi xảy ra";
 		} else {
-			$state.go('report');
+			Post.getById($scope.currentPost)
+				.success(function(resPost) {
+					$scope.post = resPost;
+					$scope.user = {
+						id: resPost.userId
+					};
+					User.getById($scope.user)
+						.success(function(resUser) {
+							$scope.user = resUser;
+						})
+						.error(function(error) {
+							/* Act on the event */
+							flash.error = error;
+						});
+				})
+				.error(function(error) {
+					/* Act on the event */
+					flash.error = error;
+				});
 		}
-	};
-}]);
+
+
+		$scope.getPostDetail = function(post) {
+			Post.setCurrentPost(post._id);
+			Post.unshiftPreviousPosts(post);
+			console.log($state);
+			if ($state.current.name == 'Post') {
+				$state.reload();
+			} else {
+				$state.go('Post');
+			}
+		};
+
+		$scope.showPhoneClick = function() {
+			if ($scope.showPhone === false) {
+				$scope.showPhone = true;
+			} else {
+				$scope.showPhone = false;
+			}
+		};
+
+		$scope.reportPost = function() {
+			console.log($scope.currentUser);
+			console.log($scope.post.userId);
+			if ($scope.currentUser == $scope.post.userId) {
+				flash.error = 'Bạn không thể report bài viết của chính mình!';
+			} else {
+				$state.go('report');
+			}
+		};
+	}])
+
+	.controller('PreviousPostCtrl', ['$scope', '$state', 'Post', function($scope, $state, Post) {
+		$scope.previousPosts = Post.getPreviousPosts();
+		$scope.getPostDetail = function(post) {
+			Post.setCurrentPost(post._id);
+			Post.unshiftPreviousPosts(post);
+			console.log($state);
+			if ($state.current.name == 'Post') {
+				$state.reload();
+			} else {
+				$state.go('Post');
+			}
+		};
+	}]);
