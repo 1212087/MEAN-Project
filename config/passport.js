@@ -93,7 +93,7 @@ passport.use('register', new LocalStrategy({
                 newUser.phone = req.body.phone;
                 newUser.email = email;
                 newUser.password = newUser.generateHash(password);
-                newUser.role = 'user';
+                newUser.isAdmin === false;
 
                 newUser.save(function(err) {
                     if (err) {

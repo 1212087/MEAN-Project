@@ -1,30 +1,34 @@
 <div class="container-fuild">
 	<div class="row">
 		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-			<div class="panel panel-default center">
-				<div class="panel-heading">
-					<h3 class="panel-title"><h3>Quản Lý Bài Viết</h3></h3>
+			<div class="panel panel-default">
+				<div class="panel-heading center">
+					<h3 class="panel-title"><h3>Quản Lý Thành Viên</h3></h3>
 				</div>
 				<div class="panel-body">
 						<div class="table-responsive">
-							<table class="table table-hover">
+							<table class="table table-hover table-bordered">
 								<thead>
 									<tr>
-										<th class="center">Tiêu đề</th>
-										<th class="center">Ngày đăng</th>
-										<th class="center">Ngày cập nhật</th>
-										<th class="center" colspan="2">Quản lý</th>
+										<th class="center">Tên thành viên</th>
+										<th class="center">Ngày đăng ký</th>
+										<th class="center">Email</th>
+										<th class="center" colspan="3">Quản lý</th>
 									</tr>
 								</thead>
-								<tbody dir-paginate="post in posts | filter:search | orderBy:sort | itemsPerPage:5 track by post._id">
+								<tbody dir-paginate="user in users | filter:search | itemsPerPage:5 track by user._id">
 									<tr>
-										<td>{{post.title}}</td>
-										<td><i>{{post.creationDate | date:'dd-MM-yyyy'}}</i></td>
-										<td><i>{{post.lastUpdateDate | date:'dd-MM-yyyy'}}</i></td>
+										<td>{{user.name}}</td>
+										<td><i>{{user.creationDate | date:'dd-MM-yyyy'}}</i></td>
+										<td>{{user.email}}</td>
 										<td><button type="button" class="btn btn-info" ng-click="getPostDetail(post)">Xem Chi Tiết</button></td>
 										<td>
-											<button type="button" class="btn btn-warning" ng-hide="{{!post.status}}" ng-click="deactivePost(post)">Deactive Post</button>
-											<button type="button" class="btn btn-success" ng-hide="{{post.status}}" ng-click="activePost(post)">Active Post</button>
+											<button type="button" class="btn btn-warning" ng-hide="{{!user.status}}" ng-click="deactiveUser(user)">Deactive User</button>
+											<button type="button" class="btn btn-success" ng-hide="{{user.status}}" ng-click="activeUser(user)">Active User</button>
+										</td>
+										<td>
+											<button type="button" class="btn btn-danger" ng-hide="{{user.isAdmin}}" ng-click="setAdmin(user)">Set Admin</button>
+											<button type="button" class="btn btn-success" ng-hide="{{!user.isAdmin}}" ng-click="setUser(user)">Set User</button>
 										</td>
 									</tr>
 								</tbody>

@@ -1,14 +1,17 @@
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
+var Mixed    = mongoose.Schema.Types.Mixed;
 
 var Schema = mongoose.Schema({
-	userId: {
+	post: {
 		type: ObjectId,
-		required: true
+		required: true,
+		ref: 'Post'
 	},
-	postId: {
+	user: {
 		type: ObjectId,
-		required: true
+		required: true,
+		ref: 'User'
 	},
 	reason: {
 		type: String,
@@ -18,10 +21,11 @@ var Schema = mongoose.Schema({
 		type: Boolean,
 		default: false
 	},
-	createDate: {
+	createdDate: {
 		type: Date,
-		default: Date.now,
-	}, 
+		required: true,
+		default: Date.now
+	},
 	reslovedDate: {
 		type: Date,
 		required: false

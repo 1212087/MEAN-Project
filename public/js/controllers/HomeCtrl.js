@@ -2,7 +2,7 @@ angular.module('HomeCtrl', [])
 	.controller('HomeCtrl', ['$scope', '$rootScope', '$window', '$state', '$timeout', 'Post', 'Province', 'Category', 'flash', 'AuthenticationService', function($scope, $rootScope, $window, $state, $timeout, Post, Province, Category, flash, AuthenticationService) {
 		$scope.currentProvince = Province.getCurrentProvince();
 		$scope.currentCategory = Category.getCurrentCategory();
-		$scope.previousPosts = Post.getPreviousPosts();
+		// $scope.previousPosts = Post.getPreviousPosts();
 
 		Province.get()
 			.success(function(resProvinces) {

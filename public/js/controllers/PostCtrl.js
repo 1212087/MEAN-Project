@@ -59,7 +59,7 @@ angular.module('PostCtrl', [])
 			if ($scope.currentUser == $scope.post.userId) {
 				flash.error = 'Bạn không thể report bài viết của chính mình!';
 			} else {
-				$state.go('report');
+				$state.go('Report');
 			}
 		};
 	}])

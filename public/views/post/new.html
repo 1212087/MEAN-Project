@@ -67,7 +67,7 @@
 					<div class="form-group has-feedback">
 						<label class="control-label col-sm-2 mobile-hidden" for="title">Giá bán: </label>
 						<div class="col-sm-10">
-							<input type="number" id="title" class="form-control" required="required" placeholder="VND" ng-model="newPost.price">
+							<input type="number" id="title" class="form-control" required="required" min="{500"} max="" step="500"  placeholder="VND" ng-model="newPost.price">
 							<span class="glyphicon glyphicon-pencil form-control-feedback"></span>
 						</div>
 					</div>				
@@ -79,7 +79,7 @@
 							</button>
 							<div style="margin-top:10px;">
 								<!-- Show the thumbnail only when the picture is uploaded -->
-								<a href="{{newPost.picture.url}}" class="thumbnail" ng-if="newPost.picture">
+								<a href="{{newPost.picture.url}}" class="thumbnail" ng-if="newPost.picture" target="_blank">
 								<!-- the picture is rendered with width: 500 and sharpened -->
 								<img ng-src="{{newPost.picture.url | fpConvert: {filter:'sharpen', w:500} }}">
 								</a>
@@ -143,7 +143,7 @@
 			</div>
 			<div class="col-lg-3">
 				<div class="panel mobile-hidden center">
-					<h3>Bài đăng vừa xem</h3>
+					<h3>Bài Đăng Đã Xem</h3>
 				</div>
 			</div>	
 		</div>

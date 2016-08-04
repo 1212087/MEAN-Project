@@ -8,83 +8,101 @@ module.exports = function(app) {
     // xử lý khi nhận request từ angular service
     var sess;
     /* ------ Load tất cả User ------*/
-    app.get('/api/user/list', function(req, res) {
-        console.log('Get listUser request');
-        user.find(function(err, users) {
-            if (err) {
-                console.log('Error:' + err);
+    app.post('/api/user/getAll', function(req, res) {
+        user.findById(req.body._id, function(error, foundUser) {
+            if (error || foundUser === null || foundUser.length === 0) {
+                res.status(500);
+                res.send('Có lỗi xảy ra!');
             } else {
-                res.json(users);
-                console.log('Users sent!');
+                if (foundUser.isAdmin === false) {
+                    res.status(401);
+                    res.send('Bạn không có quyền thực hiện điều này');
+                } else {
+                    user.find({}, null, {
+                        sort: '-creationDate'
+                    }, function(error, foundUsers) {
+                        if (error) {
+                            res.status(500);
+                            res.send('Có lỗi xảy ra!');
+                        } else if (foundUser === null || foundUser.length === 0) {
+                            res.status(404);
+                            res.send('Không tìm thấy User nào!');
+                        } else {
+                            res.status(200);
+                            res.json(foundUsers);
+                        }
+                    });
+                }
             }
         });
+
     });
 
     /* ------ Load User theo Email ------ */
     app.post('/api/user/getUserByEmail', function(req, res) {
         user.findOne({
             email: req.body.email
-        }, function(err, user) {
-            if (err) {
+        }, function(error, foundUser) {
+            if (error) {
                 res.status(500);
-                res.end(err);
-                console.log('err: ' + err);
+                res.send('Có lỗi xảy ra');
+            } else if (foundUser === null || foundUser.length === 0) {
+                res.status(404);
+                res.send('Không tìm thấy User');
             } else {
                 res.status(200);
-                res.json(user);
+                res.json(foundUser);
             }
         });
     });
 
     /* ------ Load user theo ID ------ */
     app.post('/api/user/getByID', function(req, res) {
-        user.findById(req.body.id, function(err, user) {
-
-            if (err) {
+        user.findById(req.body.id, function(error, foundUser) {
+            if (error) {
+                res.status(500);
+                res.send('Có lỗi xảy ra');
+            } else if (foundUser === null || foundUser.length === 0) {
                 res.status(404);
-                res.send("Không tìm thấy user");
+                res.send('Không tìm thấy User');
             } else {
                 res.status(200);
-                res.json(user);
+                res.json(foundUser);
             }
         });
     });
     /* ------ Đăng ký mới user ------*/
     app.post('/api/user/register', passport.authenticate('register'), function(req, res) {
-        console.log('Get register request: ' + req.body.email);
+        // console.log('Get register request: ' + req.body.email);
         return res.send(req.user);
     });
 
     /* ------ Đăng nhập ------*/
     app.post('/api/user/login', passport.authenticate('login'), function(req, res) {
-        console.log('Get login request: ' + req.user.email);
+        // console.log('Get login request: ' + req.user.email);
         sess = req.session;
         sess.user = req.user;
-        console.log(sess);
+        // console.log(sess);
         return res.json(sess);
     });
 
     /* ------ Quên mật khẩu ------*/
     app.post('/api/user/forget', function(req, res) {
-        console.log('Get forget request: ' + req.body.email);
         var inputEmail = req.body.email;
         user.findOne({
             email: inputEmail
-        }, function(err, foundUser) {
+        }, function(error, foundUser) {
             // nếu có lỗi thì trả về lỗi.
-            if (err) {
-                throw err;
+            if (error) {
+                res.status(500);
+                res.send('Có lỗi xảy ra!');
             }
             // nếu không tìm thấy user
-            else if (!foundUser) {
-                console.log('No user found!');
-                res.status(500).send({
-                    error: 'Email này chưa đăng ký'
-                });
+            else if (foundUser === null || foundUser.length === 0) {
+                res.status(500).send('Email này chưa đăng ký');
             }
             // nếu có user
             else {
-                console.log('1 user found!');
                 // tạo mật khẩu ngẫu nhiên 10 chữ số
                 var ranString = Math.random().toString(36).substr(2, 10);
 
@@ -112,14 +130,14 @@ module.exports = function(app) {
                     if (error) {
                         throw err;
                     } else {
-                        console.log('Message sent: ' + info.response);
+                        // console.log('Message sent: ' + info.response);
                         foundUser.password = foundUser.generateHash(ranString);
-                        foundUser.save(function(err) {
-                            if (err) {
-                                throw err;
+                        foundUser.save(function(error) {
+                            if (error) {
+                                res.status(500);
+                                res.send('Có lỗi khi gửi email mật khẩu!');
                             } else {
-                                req.flash('success', 'Chúng tôi đã gửi password tới email của bạn, vui lòng kiểm tra email!');
-                                return res.redirect('/login');
+                                res.status(200).send('Đổi mật khẩu thành công, vui lòng kiểm tra Email đăng ký!');
                             }
                         });
                     }
@@ -152,7 +170,7 @@ module.exports = function(app) {
                 res.status(500);
                 res.send('Có lỗi xảy ra!');
             } else {
-                if (foundUser.length !== 0) {
+                if (foundUser === null || foundUser.length !== 0) {
                     if (!foundUser.validPassword(req.body.current)) {
                         res.status(500);
                         res.send("Mật khẩu không chính xác, xin nhập lại!");
@@ -191,7 +209,7 @@ module.exports = function(app) {
                 doc.coutyId = req.body.coutyId;
                 doc.save(function(error) {
                     if (error) {
-                        console.log(error);
+                        // console.log(error);
                         res.status(500);
                         res.send("Lỗi khi lưu thông tin");
                     } else {
@@ -205,18 +223,131 @@ module.exports = function(app) {
 
     //Check user if isAdmin
     app.post('/api/user/isAdmin', function(req, res) {
-        user.findById(req.body._id, function(err, doc) {
+        user.findById(req.body._id, function(err, foundUser) {
             if (err) {
                 res.status(500);
                 res.send('Có lỗi xảy ra!');
-            } else if (doc.length === 0) {
+            } else if (foundUser.length === 0) {
                 res.status(404);
                 res.send('Không tìm thấy tài khoản!');
             } else {
-                if (doc.role == 'admin') {
+                // console.log(foundUser.isAdmin);
+                if (foundUser.isAdmin === true) {
                     res.send(true);
                 } else {
                     res.send(false);
+                }
+            }
+        });
+    });
+
+    // Deactive user
+    app.post('/api/user/deactive', function(req, res) {
+        user.findById(req.body.userId, function(error, foundUser) {
+            if (error || foundUser === null || foundUser.length === 0) {
+                res.status(500).send('Có lỗi xảy ra!');
+            } else {
+                if (!foundUser.isAdmin) {
+                    res.status(401).send('Bạn không có quyền thực hiện hành vi này!');
+                } else {
+                    user.findById(req.body._id, function(error, foundUser2){
+                        if(error || foundUser2 === null || foundUser2.length === 0) {
+                            res.status(500).send('Có lỗi xảy ra');
+                        } else {
+                            foundUser2.status = false;
+                            foundUser2.save(function(error){
+                                if(error) {
+                                    res.status(500).send('Có lỗi xảy ra khi lưu trạng thái User');
+                                } else {
+                                    res.status(200).send('Lưu trạng thái User thành công!');
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+    // Active user
+    app.post('/api/user/active', function(req, res) {
+        user.findById(req.body.userId, function(error, foundUser) {
+            if (error || foundUser === null || foundUser.length === 0) {
+                res.status(500).send('Có lỗi xảy ra!');
+            } else {
+                if (!foundUser.isAdmin) {
+                    res.status(401).send('Bạn không có quyền thực hiện hành vi này!');
+                } else {
+                    user.findById(req.body._id, function(error, foundUser2){
+                        if(error || foundUser2 === null || foundUser2.length === 0) {
+                            res.status(500).send('Có lỗi xảy ra');
+                        } else {
+                            foundUser2.status = true;
+                            foundUser2.save(function(error){
+                                if(error) {
+                                    res.status(500).send('Có lỗi xảy ra khi lưu trạng thái User');
+                                } else {
+                                    res.status(200).send('Lưu trạng thái User thành công!');
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+    // Set user from  User -> Admin
+    app.post('/api/user/setAdmin', function(req, res) {
+        user.findById(req.body.userId, function(error, foundUser) {
+            if (error || foundUser === null || foundUser.length === 0) {
+                res.status(500).send('Có lỗi xảy ra!');
+            } else {
+                if (!foundUser.isAdmin) {
+                    res.status(401).send('Bạn không có quyền thực hiện hành vi này!');
+                } else {
+                    user.findById(req.body._id, function(error, foundUser2){
+                        if(error || foundUser2 === null || foundUser2.length === 0) {
+                            res.status(500).send('Có lỗi xảy ra');
+                        } else {
+                            foundUser2.isAdmin = true;
+                            foundUser2.save(function(error){
+                                if(error) {
+                                    res.status(500).send('Có lỗi xảy ra khi lưu trạng thái User');
+                                } else {
+                                    res.status(200).send('Lưu trạng thái User thành công!');
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+    // Set user from Admin -> User
+    app.post('/api/user/setUser', function(req, res) {
+        user.findById(req.body.userId, function(error, foundUser) {
+            if (error || foundUser === null || foundUser.length === 0) {
+                res.status(500).send('Có lỗi xảy ra!');
+            } else {
+                if (!foundUser.isAdmin) {
+                    res.status(401).send('Bạn không có quyền thực hiện hành vi này!');
+                } else {
+                    user.findById(req.body._id, function(error, foundUser2){
+                        if(error || foundUser2 === null || foundUser2.length === 0) {
+                            res.status(500).send('Có lỗi xảy ra');
+                        } else {
+                            foundUser2.isAdmin = false;
+                            foundUser2.save(function(error){
+                                if(error) {
+                                    res.status(500).send('Có lỗi xảy ra khi lưu trạng thái User');
+                                } else {
+                                    res.status(200).send('Lưu trạng thái User thành công!');
+                                }
+                            });
+                        }
+                    });
                 }
             }
         });

@@ -168,6 +168,33 @@ angular.module('appRoutes', [])
 					requiredAdmin: true
 				}
 			})
+			.state('AdminReports', {
+				url: '/admin/reports',
+				controller: 'AdminReportsCtrl',
+				templateUrl: 'views/admin/reports_manage.html',
+				access: {
+					requiredLogin: true,
+					requiredAdmin: true
+				}
+			})
+			.state('AdminReportDetail', {
+				url: '/admin/reports/detail',
+				controller: 'AdminReportsDetailCtrl',
+				templateUrl: 'views/admin/report_detail.html',
+				access: {
+					requiredLogin: true,
+					requiredAdmin: true
+				}
+			})
+			.state('AdminUsers', {
+				url: '/admin/users',
+				controller: 'AdminUsersCtrl',
+				templateUrl: 'views/admin/users_manage.html',
+				access: {
+					requiredLogin: true,
+					requiredAdmin: true
+				}
+			})
 			.state('404', {
 				url: '/404',
 				templateUrl: 'views/layout/404.html',

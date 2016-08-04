@@ -21,10 +21,15 @@ var Schema = mongoose.Schema ({
         required: true,
         default: null
     },
-    role: {
-        type: String,
+    isAdmin: {
+        type: Boolean,
         required: true,
-        default: 'user'
+        default: false
+    },
+    status: {
+        type: Boolean,
+        required: true,
+        default: true
     },
     address: {
         type: String,

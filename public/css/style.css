@@ -567,8 +567,8 @@ img{
 		padding-top: 5px;
 	}
 	
-	.post .info .author {
-		width: 35%;
+	.post .info .date {
+		width: 30%;
 		position: absolute;
 		bottom: -168px;
 		left: 0px;
@@ -576,10 +576,10 @@ img{
 	}
 
 	.post .info .localtion {
-		width: 35%;
+		width: 40%;
 		position: absolute;
 		bottom: -168px;
-		left: 300px;
+		left: 230px;
 		height: 50px;
 	}
 

@@ -3,22 +3,6 @@ angular.module('UserCtrl', [])
         function($scope, $state, User, flash, $rootScope, $cookieStore, $window, AuthenticationService) {
             $scope.user = {};
 
-            $scope.GoToManage = function() {
-                $scope.user = {
-                    _id: User.getCurrentUser()
-                };
-                User.isAdmin($scope.user)
-                    .success(function(res) {
-                        if (res === true) {
-                            $state.go('Admin');
-                        } else {
-                            $state.go('Manage');
-                        }
-                    })
-                    .error(function(error){
-                        flash.error = error;
-                    });
-            };
             // Xử ly user đăng nhập
             $scope.login = function() {
                 if (!$.isEmptyObject($scope.user)) {
@@ -78,18 +62,19 @@ angular.module('UserCtrl', [])
                 $scope.Process = true;
                 if (!$.isEmptyObject($scope.user)) {
                     User.forget($scope.user)
-                        .success(function(data) {
+                        .success(function(res) {
                             $scope.user = {};
                             $scope.Process = false;
-                            flash.success = 'Chúng tôi đã gửi password đến email của bạn! Vui lòng kiểm tra email';
+                            flash.success = data;
                             $state.go('Login');
                         })
-                        .error(function(data) {
+                        .error(function(error) {
                             /* Act on the event */
-                            console.log(data);
-                            flash.error = data.error;
+                            flash.error = error;
                             $scope.Process = false;
-                            $state.go('Register');
+                            setTimeout(function(){
+                                $state.go('Register');
+                            }, 2000);
                         });
                 }
             };
@@ -104,6 +89,7 @@ angular.module('UserCtrl', [])
                         delete $window.sessionStorage.provinceId;
                         delete $window.localStorage.currentPost;
                         delete $window.localStorage.previousPosts;
+                        delete $window.localStorage.currentCategory;
                         flash.success = data;
                         setTimeout(function() {
                             $state.go('Login');
@@ -120,5 +106,9 @@ angular.module('UserCtrl', [])
                 $state.go('Home');
                 flash.info = 'Quay trở lại trang chủ';
             };
+
+            // $scope.GoToManage = function() {
+            //     if()
+            // }
         }
     ]);

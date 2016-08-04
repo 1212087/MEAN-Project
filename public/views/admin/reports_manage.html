@@ -3,29 +3,27 @@
 		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
 			<div class="panel panel-default center">
 				<div class="panel-heading">
-					<h3 class="panel-title"><h3>Quản Lý Bài Viết</h3></h3>
+					<h3 class="panel-title"><h3>Reports</h3></h3>
 				</div>
 				<div class="panel-body">
 						<div class="table-responsive">
-							<table class="table table-hover">
+							<table class="table table-bordered ">
 								<thead>
 									<tr>
-										<th class="center">Tiêu đề</th>
-										<th class="center">Ngày đăng</th>
-										<th class="center">Ngày cập nhật</th>
-										<th class="center" colspan="2">Quản lý</th>
+										<th class="center">Bài viết</th>
+										<th class="center">Người báo cáo</th>
+										<th class="center">Lý do</th>
+										<th class="center">Ngày báo cáo</th>
+										<th class="center">Hành động</th>
 									</tr>
 								</thead>
-								<tbody dir-paginate="post in posts | filter:search | orderBy:sort | itemsPerPage:5 track by post._id">
+								<tbody dir-paginate="report in reports | filter:search | orderBy:sort | itemsPerPage:5 track by report._id">
 									<tr>
-										<td>{{post.title}}</td>
-										<td><i>{{post.creationDate | date:'dd-MM-yyyy'}}</i></td>
-										<td><i>{{post.lastUpdateDate | date:'dd-MM-yyyy'}}</i></td>
-										<td><button type="button" class="btn btn-info" ng-click="getPostDetail(post)">Xem Chi Tiết</button></td>
-										<td>
-											<button type="button" class="btn btn-warning" ng-hide="{{!post.status}}" ng-click="deactivePost(post)">Deactive Post</button>
-											<button type="button" class="btn btn-success" ng-hide="{{post.status}}" ng-click="activePost(post)">Active Post</button>
-										</td>
+										<td>{{report.post.title}}</td>
+										<td>{{report.user.name}}</td>
+										<td>{{report.reason}}</td>
+										<td>{{report.createdDate|date:"dd-MM-yyyy"}}</td>
+										<td><button type="button" class="btn btn-info" ng-click="ReportDetail(report)">Xem Chi Tiết</button></td>
 									</tr>
 								</tbody>
 							</table>
@@ -39,7 +37,7 @@
 		</div>
 		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" ng-controller="PreviousPostCtrl">
 			<div class="panel mobile-hidden">
-				<h3 class="center">Bài Đăng Đã Xem</h3>
+				<h3 class="center">Bài đăng vừa xem</h3>
 				<div class="container-fluid">
 					<div class="row" ng-repeat="post in previousPosts" style="padding: 5px 5px 5px 5px; margin-top: 10px; background-color: #EEEEEE; border-radius: 10px">
 						<div class="col-sm-4 image no-padding">

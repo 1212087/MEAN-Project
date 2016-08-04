@@ -50,7 +50,7 @@ onchange="alert(event.fpfile.url)">	</head> -->
 							<ul class="nav navbar-nav menu">
 								<li><a class="newpost-btn" href="/new" title="Đăng tin bài mới" data-target=".navbar-collapse" data-toggle="collapse"><b>ĐĂNG BÁN NGAY!</b></a></li>
 								<li ng-if="!isLoggedIn"><a data-toggle="collapse" data-target=".navbar-collapse" href="/login" ><b>ĐĂNG NHẬP</b></a></li>
-								<li ng-if="isLoggedIn" class="top-menu"><a href ng-click="GoToManage()"><b>QUẢN LÝ</b></a></li>
+								<li ng-if="isLoggedIn" class="top-menu"><a href="/manage"><b>QUẢN LÝ</b></a></li>
 								<li><a data-toggle="collapse" data-target=".navbar-collapse" href=""><b>TRỢ GIÚP</b></a></li>
 								<li><a data-toggle="collapse" data-target=".navbar-collapse" href="/about"><b>VỀ CHÚNG TÔI</b></a></li>
 								<li ng-if="isLoggedIn"><a data-toggle="collapse" data-target=".navbar-collapse" href="" ng-click="logout()" title=""><b>ĐĂNG XUẤT </b></a></li>
