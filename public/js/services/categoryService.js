@@ -17,7 +17,7 @@ angular.module('categoryService', [])
                     $window.localStorage.removeItem('currentCategory');
                 } else {
                     $window.localStorage.setItem('currentCategory', JSON.stringify({
-                        id: value
+                        _id: value
                     }));
                 }
             },

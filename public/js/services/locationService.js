@@ -15,7 +15,7 @@ angular.module('locationService', [])
                     $window.localStorage.removeItem('currentProvince');
                 } else {
                     $window.localStorage.setItem('currentProvince', JSON.stringify({
-                        id: value
+                        _id: value
                     }));
                 }
             },
@@ -30,13 +30,13 @@ angular.module('locationService', [])
         };
     }])
 
-.factory('Couty', ['$http', function($http) {
-    return {
-        getByProvince: function(data) {
-            return $http.post('/api/couty/getByProvince', data);
-        },
-        getById: function(data) {
-            return $http.post('/api/couty/getById', data);
-        }
-    };
-}]);
+    .factory('Couty', ['$http', function($http) {
+        return {
+            getByProvince: function(data) {
+                return $http.post('/api/couty/getByProvince', data);
+            },
+            getById: function(data) {
+                return $http.post('/api/couty/getById', data);
+            }
+        };
+    }]);

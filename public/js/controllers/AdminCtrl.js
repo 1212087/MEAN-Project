@@ -1,8 +1,18 @@
 angular.module('AdminCtrl', [])
-	.controller('AdminCtrl', ['$scope', '$state', 'Post', 'User', 'Report', 'flash', function($scope, $state, Post, User, Report, flash) {
+	.controller('AdminCtrl', ['$scope', '$state', 'Post', 'User', 'Report', 'Message', 'flash', function($scope, $state, Post, User, Report, Message, flash) {
 		Report.countUnreslove()
 			.success(function(res) {
 				$scope.numReports = res;
+			})
+			.error(function(error) {
+				flash.error = error;
+			});
+
+		Message.countUnread({
+				_id: User.getCurrentUser()
+			})
+			.success(function(res) {
+				$scope.numMessages = res;
 			})
 			.error(function(error) {
 				flash.error = error;

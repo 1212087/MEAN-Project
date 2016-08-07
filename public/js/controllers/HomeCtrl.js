@@ -6,6 +6,14 @@ angular.module('HomeCtrl', [])
 		Province.get()
 			.success(function(resProvinces) {
 				$scope.provinces = resProvinces;
+				if($scope.currentProvince !== null) {
+					for (var i = $scope.provinces.length - 1; i >= 0; i--) {
+						if($scope.provinces[i]._id === $scope.currentProvince._id) {
+							$scope.currentProvince = $scope.provinces[i];
+							break;
+						}
+					}
+				}
 			})
 			.error(function(error) {
 				flash.error = error;
@@ -14,6 +22,14 @@ angular.module('HomeCtrl', [])
 		Category.get()
 			.success(function(resCategories) {
 				$scope.categories = resCategories;
+				if($scope.currentCategory !== null) {
+					for (var i = $scope.categories.length - 1; i >= 0; i--) {
+						if($scope.categories[i]._id === $scope.currentCategory._id) {
+							$scope.currentCategory = $scope.categories[i];
+							break;
+						}
+					}
+				}
 			})
 			.error(function(error) {
 				flash.error = error;
@@ -23,8 +39,8 @@ angular.module('HomeCtrl', [])
 		if ($scope.currentProvince !== null && $scope.currentCategory !== null) {
 			// console.log('Lấy theo tỉnh & loại');
 			var search = {
-				provinceId: $scope.currentProvince.id,
-				categoryId: $scope.currentCategory.id
+				provinceId: $scope.currentProvince._id,
+				categoryId: $scope.currentCategory._id
 			};
 			// console.log(search);
 			Post.getByProvinceAndCategory(search)
@@ -39,7 +55,7 @@ angular.module('HomeCtrl', [])
 		// chỉ lấy theo tỉnh khi loại == null
 		else if ($scope.currentProvince !== null) {
 			Post.getByProvince({
-					_id: $scope.currentProvince.id
+					_id: $scope.currentProvince._id
 				})
 				.success(function(resPosts) {
 					// console.log(resPosts);
@@ -56,7 +72,7 @@ angular.module('HomeCtrl', [])
 		else if ($scope.currentCategory !== null) {
 			// console.log('Lấy theo danh mục');
 			Post.getByCategory({
-					_id: $scope.currentCategory.id
+					_id: $scope.currentCategory._id
 				})
 				.success(function(resPosts) {
 					$scope.posts = resPosts;
@@ -89,19 +105,19 @@ angular.module('HomeCtrl', [])
 		};
 
 		$scope.searchByCategory = function() {
-			if ($scope.search.category.name == "Tất cả danh mục") {
+			if ($scope.currentCategory.name == "Tất cả danh mục") {
 				Category.setCurrentCategory(null);
 			} else {
-				Category.setCurrentCategory($scope.search.category._id);
+				Category.setCurrentCategory($scope.currentCategory._id);
 			}
 			$state.reload();
 		};
 
 		$scope.searchByProvince = function() {
-			if ($scope.search.province.name == "Toàn Quốc") {
+			if ($scope.currentProvince.name == "Toàn Quốc") {
 				Province.setCurrentProvince(null);
 			} else {
-				Province.setCurrentProvince($scope.search.province._id);
+				Province.setCurrentProvince($scope.currentProvince._id);
 			}
 			$state.reload();
 		};

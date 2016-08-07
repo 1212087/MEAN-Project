@@ -69,7 +69,6 @@ angular.module('postService', [])
                 return $http.get('/api/post/getActive');
             },
             getByCategory: function(categoryId) {
-                console.log(categoryId);
                 return $http.post('/api/post/getByCategory', categoryId);
             },
             getByProvince: function(provinceId) {

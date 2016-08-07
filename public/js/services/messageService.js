@@ -9,6 +9,9 @@ angular.module('messageService', [])
             },
             RecievedMessages: function(_id) {
                 return $http.post('/api/message/recieved-messages', _id);
+            }, 
+            countUnread: function(_id){
+                return $http.post('/api/message/countUnread', _id);
             }
         };
     }]);

@@ -45,7 +45,7 @@ module.exports = function(app) {
 	/* ------ Get Posts By Province ------ */
 	/*	
 		{
-			id: provinceId
+			_id: provinceId
 		}
 	*/
 	app.post('/api/post/getByProvince', function(req, res) {
@@ -77,7 +77,7 @@ module.exports = function(app) {
 		}
 	*/
 	app.post('/api/post/getByCategory', function(req, res) {
-		// console.log('mã loai: ' + req.body.id);
+		console.log(req.body);
 		post.find({
 				'categoryId': req.body._id,
 				status: true

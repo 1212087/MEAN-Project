@@ -37,22 +37,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" ng-controller="PreviousPostCtrl">
-			<div class="panel mobile-hidden">
-				<h3 class="center">Bài đăng vừa xem</h3>
-				<div class="container-fluid">
-					<div class="row" ng-repeat="post in previousPosts" style="padding: 5px 5px 5px 5px; margin-top: 10px; background-color: #EEEEEE; border-radius: 10px">
-						<div class="col-sm-4 image no-padding">
-							<a href="" ng-click="getPostDetail(post)"><img class="img-rounded" ng-src="{{post.picture.url}}" alt="Image"></a>
-						</div>
-						<div class="col-sm-8">
-							<a href="" ng-click="getPostDetail(post)" ><b>{{post.title}}</b></a>
-							<br>
-							<b class="price">{{post.price|number:0}} VND</b>
-						</div>
-					</div>
-				</div>
-			</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" ng-include="'/views/layout/previousPosts.html'" scope="" onload="">
+			
 		</div>
 	</div>	
 </div>

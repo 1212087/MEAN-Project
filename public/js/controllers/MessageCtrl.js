@@ -16,6 +16,7 @@ angular.module('MessageCtrl', [])
 			activeTab = $(e.target).attr('href');
 
 			if (activeTab === "#sent-messages") {
+				$scope.messages = null;
 				Message.SentMessages($scope.currentUser)
 					.success(function(resMessages) {
 						$scope.messages = resMessages;
@@ -25,13 +26,10 @@ angular.module('MessageCtrl', [])
 					});
 			}
 			if (activeTab === "#recieved-messages") {
+				$scope.messages = null;
 				Message.RecievedMessages($scope.currentUser)
 					.success(function(resMessages) {
 						$scope.messages = resMessages;
-						if(resMessages.fromUser === null) {
-							$scope.messages.formUser.name = "Không có";
-							$scope.messages.formUser.email = "Không có";
-						}
 					})
 					.error(function(error) {
 						flash.error = error;

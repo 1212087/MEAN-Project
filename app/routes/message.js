@@ -26,7 +26,7 @@ module.exports = function(app) {
     app.post('/api/message/sent-messages', function(req, res) {
         message.find({
             fromUser: req.body._id
-        }).populate('toUser', 'name email').exec(function(error, foundMessages) {
+        }, null, {sort: '-createdDate'}).populate('toUser', 'name email').exec(function(error, foundMessages) {
             if (error || foundMessages === null || foundMessages.length === 0) {
                 res.status(500).send("Có lỗi xảy ra hoặc không tìm thấy tin nhắn!");
             } else {
@@ -57,6 +57,19 @@ module.exports = function(app) {
                         res.status(200).json(foundMessages);
                     }
                 });
+            }
+        });
+    });
+
+    app.post('/api/message/countUnread', function(req, res){
+        message.find({
+            toUser: req.body._id,
+            seen: false
+        }).count(function(error, numMessages){
+            if(error) {
+                res.status(500).send('Có lỗi xảy ra!');
+            } else {
+                res.status(200).json(numMessages);
             }
         });
     });
