@@ -3,12 +3,12 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 var Mixed    = mongoose.Schema.Types.Mixed;
 
 var Schema = mongoose.Schema({
-	post: {
+	postId: {
 		type: ObjectId,
 		required: true,
 		ref: 'Post'
 	},
-	user: {
+	userId: {
 		type: ObjectId,
 		required: true,
 		ref: 'User'

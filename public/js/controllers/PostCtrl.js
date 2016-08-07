@@ -1,7 +1,7 @@
 angular.module('PostCtrl', [])
 	.controller('PostCtrl', ['$scope', '$window', '$state', 'Post', 'User', 'flash', function($scope, $window, $state, Post, User, flash) {
 		$scope.currentPost = {
-			id: Post.getCurrentPost()
+			_id: Post.getCurrentPost()
 		};
 		$scope.currentUser = User.getCurrentUser();
 
@@ -16,7 +16,7 @@ angular.module('PostCtrl', [])
 				.success(function(resPost) {
 					$scope.post = resPost;
 					$scope.user = {
-						id: resPost.userId
+						_id: resPost.userId
 					};
 					User.getById($scope.user)
 						.success(function(resUser) {
@@ -54,8 +54,6 @@ angular.module('PostCtrl', [])
 		};
 
 		$scope.reportPost = function() {
-			console.log($scope.currentUser);
-			console.log($scope.post.userId);
 			if ($scope.currentUser == $scope.post.userId) {
 				flash.error = 'Bạn không thể report bài viết của chính mình!';
 			} else {

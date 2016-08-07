@@ -2,10 +2,12 @@ var couty = require('../models/Couty');
 
 module.exports = function(app) {
     app.get('/api/couty/list', function(req, res) {
-        couty.find(function(err, doc) {
-            if (err) {
+        couty.find(function(error, foundCouties) {
+            if (error) {
                 res.status(500);
                 res.send(err);
+            } else if (foundCouties === null || foundCouties.length === 0) {
+                res.status(404).send('Không tìm thấy danh sách quận/huyện!');
             } else {
                 res.status(200);
                 res.json(doc);

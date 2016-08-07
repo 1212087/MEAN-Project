@@ -1,7 +1,6 @@
 angular.module('WelcomeCtrl', [])
     .controller('WelcomeCtrl', ['$http', '$scope', '$rootScope', '$window', '$state', 'Province', 'Category', 'User', 'AuthenticationService', function($http, $scope, $rootScope, $window, $state, Province, Category, User, AuthenticationService) {
         // $rootScope.isLoggedIn = AuthenticationService.isAuthenticated;
-        $scope.categories;
         Province.get().success(function(response) {
             $scope.provinces = response;
         });
@@ -16,8 +15,9 @@ angular.module('WelcomeCtrl', [])
             });
 
         $scope.ChooseCategory = function(category) {
-            if (Province.getCurrentProvince() !== null)
+            if (Province.getCurrentProvince() !== null) {
                 Province.setCurrentProvince(null);
+            }
             Category.setCurrentCategory(category._id);
             $state.go('Home');
         };

@@ -24,13 +24,14 @@ var myApp = angular.module('myApp', [
 	'AdminCtrl',
 	'AccountManageCtrl',
 	'PostManageCtrl',
-	'NotiCtrl',
+	'MessageCtrl',
 	'locationService',
 	'userService',
 	'authService',
 	'categoryService',
 	'postService',
-	'reportService'
+	'reportService',
+	'messageService'
 ])
 
 .config(['flashProvider', function(flashProvider) {

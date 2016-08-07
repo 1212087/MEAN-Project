@@ -10,29 +10,29 @@
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th class="center" colspan="2"><h4>{{report.post.title}}</h4></th>
+									<th class="center" colspan="2"><h4>{{post.title}}</h4></th>
 									<th class="center"></th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td class="image-300" colspan="2"><img src="{{report.post.picture.url}}" alt=""></td>
+									<td class="image-300" colspan="2"><img src="{{post.picture.url}}" alt=""></td>
 								</tr>
 								<tr>
 									<td><b>Giá Bán:</b></td>
-									<td class="price">{{report.post.price|number:0}} VND</td>
+									<td class="price">{{post.price|number:0}} VND</td>
 								</tr>
 								<tr>
 									<td><b>SDT:</b></td>
-									<td class="price">{{report.post.phoneNumber}}</td>
+									<td class="price">{{post.phoneNumber}}</td>
 								</tr>
 								<tr>
 									<td><b>Địa chỉ:</b></td>
-									<td>{{report.post.address}} - {{report.post.couty.name}} - {{report.post.province.name}}</td>
+									<td>{{post.address}} - {{post.coutyId.name}} - {{post.provinceId.name}}</td>
 								</tr>
 								<tr>
 									<td><b>Nội Dung:</b></td>
-									<td>{{report.post.description}}</td>
+									<td>{{post.description}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -56,8 +56,8 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr dir-paginate="report in reports| itemsPerPage:5 track by report._id">
-									<td>{{report.user.name}}</td>
+								<tr dir-paginate="report in reports| itemsPerPage:10 track by report._id">
+									<td>{{report.userId.name}}</td>
 									<td>{{report.createdDate|date:"HH:mm:ss 'ngày' dd-MM-yyyy"}}</td>
 									<td>{{report.reason}}</td>
 								</tr>

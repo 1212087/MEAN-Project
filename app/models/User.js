@@ -39,12 +39,14 @@ var Schema = mongoose.Schema ({
     provinceId: {
         type: ObjectId,
         required: false,
-        default: null
+        default: null,
+        ref: "Province"
     },
     coutyId: {
         type: ObjectId,
         required: false,
-        default: null
+        default: null,
+        ref: "Couty"
     },
     creationDate: {
         type: Date,

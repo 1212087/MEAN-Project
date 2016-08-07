@@ -33,7 +33,10 @@
 									<br>
 									<div class="row">
 										<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-											<select ng-model="userProvince" ng-options="province as province.name for province in provinces" id="province"  class="form-control"  ng-change="loadCouty()" required="required">
+											<!-- <select ng-model="userProvince" ng-options="province as province.name for province in provinces" id="province"  class="form-control"  ng-change="loadCouty()" required="required">
+											</select> -->
+											<select ng-options="province as province.name for province in provinces | limitTo:provinces.length:1" class="form-control" ng-model="userProvince" ng-change="loadCouty()" required="required">
+												
 											</select>
 										</div>
 										<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">

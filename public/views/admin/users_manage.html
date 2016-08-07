@@ -6,34 +6,36 @@
 					<h3 class="panel-title"><h3>Quản Lý Thành Viên</h3></h3>
 				</div>
 				<div class="panel-body">
-						<div class="table-responsive">
-							<table class="table table-hover table-bordered">
-								<thead>
-									<tr>
-										<th class="center">Tên thành viên</th>
-										<th class="center">Ngày đăng ký</th>
-										<th class="center">Email</th>
-										<th class="center" colspan="3">Quản lý</th>
-									</tr>
-								</thead>
-								<tbody dir-paginate="user in users | filter:search | itemsPerPage:5 track by user._id">
-									<tr>
-										<td>{{user.name}}</td>
-										<td><i>{{user.creationDate | date:'dd-MM-yyyy'}}</i></td>
-										<td>{{user.email}}</td>
-										<td><button type="button" class="btn btn-info" ng-click="getPostDetail(post)">Xem Chi Tiết</button></td>
-										<td>
-											<button type="button" class="btn btn-warning" ng-hide="{{!user.status}}" ng-click="deactiveUser(user)">Deactive User</button>
-											<button type="button" class="btn btn-success" ng-hide="{{user.status}}" ng-click="activeUser(user)">Active User</button>
-										</td>
-										<td>
-											<button type="button" class="btn btn-danger" ng-hide="{{user.isAdmin}}" ng-click="setAdmin(user)">Set Admin</button>
-											<button type="button" class="btn btn-success" ng-hide="{{!user.isAdmin}}" ng-click="setUser(user)">Set User</button>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+						<input type="text" id="input" class="form-control" ng-model="search" placeholder="Tìm kiếm (tên thành viên / email)">
+					<br>
+					<div class="table-responsive">
+						<table class="table table-hover table-bordered">
+							<thead>
+								<tr>
+									<th class="center">Tên thành viên</th>
+									<th class="center">Email</th>
+									<th class="center">Ngày đăng ký</th>
+									<th class="center" colspan="3">Quản lý</th>
+								</tr>
+							</thead>
+							<tbody dir-paginate="user in users | filter:search | itemsPerPage:10 track by user._id">
+								<tr>
+									<td>{{user.name}}</td>
+									<td>{{user.email}}</td>
+									<td><i>{{user.creationDate | date:'dd-MM-yyyy'}}</i></td>
+									<td><a class="btn btn-info" href="/admin/user/{{user._id}}" role="button">Xem chi tiết</a></td>
+									<td>
+										<button type="button" class="btn btn-warning" ng-hide="{{!user.status}}" ng-click="deactiveUser(user)">Lock User</button>
+										<button type="button" class="btn btn-success" ng-hide="{{user.status}}" ng-click="activeUser(user)">Unlock User</button>
+									</td>
+									<td>
+										<button type="button" class="btn btn-danger" ng-hide="{{user.isAdmin}}" ng-click="setAdmin(user)">Set Admin</button>
+										<button type="button" class="btn btn-success" ng-hide="{{!user.isAdmin}}" ng-click="setUser(user)">Set User</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 					<dir-pagination-controls max-size="10" direction-links="true" boundary-links="true" class="center pagination" style="width: 100%">
 				       
 				       

@@ -4,5 +4,6 @@ module.exports = {
 	post: 		require('./Post.js'),
 	category: 	require('./Category.js'),
 	report: 	require('./Report.js'),
-	couty: 		require('/Couty.js')
+	couty: 		require('/Couty.js'),
+	message: 	require('/Message.js')
 };

@@ -1,0 +1,64 @@
+<div class="container-fuild">
+	<div class="row">
+		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+			<div class="panel panel-default">
+				<div class="panel-heading center">
+					<h3 class="panel-title"><h3>Thông Tin Tài Khoản</h3></h3>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table class="table table-hover">
+							<tbody>
+								<tr>
+									<td><b>Tên hiển thị:</b></td>
+									<td>{{user.name}}</td>
+								</tr>
+								<tr>
+									<td><b>Email:</b></td>
+									<td>{{user.email}}</td>
+								</tr>
+								<tr>
+									<td><b>Ngày đăng ký:</b></td>
+									<td>{{user.creationDate | date:"hh:mm:ss 'ngày' dd/MM/yyyy"}}</td>
+								</tr>
+								<tr>
+									<td><b>Ngày cập nhật:</b></td>
+									<td>{{user.lastEditDate | date:"hh:mm:ss 'ngày' dd/MM/yyyy"}}</td>
+								</tr>
+								<tr>
+									<td><b>Ngày đăng nhập gần nhất:</b></td>
+									<td>{{user.lastAccessDate |date:"hh:mm:ss 'ngày' dd/MM/yyyy"}}</td>
+								</tr>
+								<tr>
+									<td><b>Admin:</b></td>
+									<td>{{user.isAdmin}}</td>
+								</tr>
+								<tr>
+									<td><b>Địa chỉ:</b></td>
+									<td>{{user.address}} - {{user.coutyId.name}} - {{user.provinceId.name}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" ng-controller="PreviousPostCtrl">
+			<div class="panel mobile-hidden">
+				<h3 class="center">Bài đăng vừa xem</h3>
+				<div class="container-fluid">
+					<div class="row" ng-repeat="post in previousPosts" style="padding: 5px 5px 5px 5px; margin-top: 10px; background-color: #EEEEEE; border-radius: 10px">
+						<div class="col-sm-4 image no-padding">
+							<a href="" ng-click="getPostDetail(post)"><img class="img-rounded" ng-src="{{post.picture.url}}" alt="Image"></a>
+						</div>
+						<div class="col-sm-8">
+							<a href="" ng-click="getPostDetail(post)" ><b>{{post.title}}</b></a>
+							<br>
+							<b class="price">{{post.price|number:0}} VND</b>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>

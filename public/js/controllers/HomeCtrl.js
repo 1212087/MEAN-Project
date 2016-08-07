@@ -1,8 +1,7 @@
 angular.module('HomeCtrl', [])
 	.controller('HomeCtrl', ['$scope', '$rootScope', '$window', '$state', '$timeout', 'Post', 'Province', 'Category', 'flash', 'AuthenticationService', function($scope, $rootScope, $window, $state, $timeout, Post, Province, Category, flash, AuthenticationService) {
-		$scope.currentProvince = Province.getCurrentProvince();
-		$scope.currentCategory = Category.getCurrentCategory();
-		// $scope.previousPosts = Post.getPreviousPosts();
+		$scope.currentProvince = JSON.parse(Province.getCurrentProvince());
+		$scope.currentCategory = JSON.parse(Category.getCurrentCategory());
 
 		Province.get()
 			.success(function(resProvinces) {
@@ -22,16 +21,16 @@ angular.module('HomeCtrl', [])
 
 		// lấy theo vị trí và loại khi có cả 2
 		if ($scope.currentProvince !== null && $scope.currentCategory !== null) {
-			console.log('Lấy theo tỉnh & loại');
+			// console.log('Lấy theo tỉnh & loại');
 			var search = {
-				currentProvince: JSON.parse($scope.currentProvince),
-				currentCategory: JSON.parse($scope.currentCategory)
+				provinceId: $scope.currentProvince.id,
+				categoryId: $scope.currentCategory.id
 			};
 			// console.log(search);
 			Post.getByProvinceAndCategory(search)
 				.success(function(resPosts) {
 					$scope.posts = resPosts;
-					console.log(resPosts);
+					// console.log(resPosts);
 				})
 				.error(function(error) {
 					flash.error = error;
@@ -39,9 +38,11 @@ angular.module('HomeCtrl', [])
 		}
 		// chỉ lấy theo tỉnh khi loại == null
 		else if ($scope.currentProvince !== null) {
-			Post.getByProvince($scope.currentProvince)
+			Post.getByProvince({
+					_id: $scope.currentProvince.id
+				})
 				.success(function(resPosts) {
-					console.log(resPosts);
+					// console.log(resPosts);
 					$scope.posts = resPosts;
 				})
 				.error(function(error) {
@@ -53,8 +54,10 @@ angular.module('HomeCtrl', [])
 
 		// chỉ lấy theo loại khi tỉnh == null
 		else if ($scope.currentCategory !== null) {
-			console.log('Lấy theo danh mục');
-			Post.getByCategory($scope.currentCategory)
+			// console.log('Lấy theo danh mục');
+			Post.getByCategory({
+					_id: $scope.currentCategory.id
+				})
 				.success(function(resPosts) {
 					$scope.posts = resPosts;
 					// console.log($scope.posts);
@@ -68,11 +71,10 @@ angular.module('HomeCtrl', [])
 
 		// ko có gì -> lấy tất cả post
 		else {
-			console.log('Lấy tất cả');
+			// console.log('Lấy tất cả');
 			Post.getActivePosts()
 				.success(function(resPosts) {
 					$scope.posts = resPosts;
-					console.log(resPosts);
 				})
 				.error(function(error) {
 					// console.log(error);

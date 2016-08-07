@@ -1,7 +1,7 @@
 angular.module('ReportCtrl', [])
 	.controller('ReportCtrl', ['$scope', '$window', '$state', 'Report', 'Post', 'User', 'flash', function($scope, $window, $state, Report, Post, User, flash) {
 		$scope.currentPost = {
-			id: Post.getCurrentPost()
+			_id: Post.getCurrentPost()
 		};
 
 		$scope.currentUser = User.getCurrentUser();

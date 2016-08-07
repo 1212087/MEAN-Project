@@ -96,6 +96,34 @@ angular.module('appRoutes', [])
 					redirectTo: '/login'
 				}
 			})
+			.state('SendMessage', {
+				url: '/send-message/:toId/:toName',
+				templateUrl: 'views/user/send-message.html',
+				controller: 'SendMessageCtrl',
+				title: 'Gửi Tin Nhắn',
+				access: {
+					requiredLogin: false,
+					redirectTo: '/login'
+				}
+			})
+			// .state('SentMessage', {
+			// 	url: '/messages#sent-messages',
+			// 	// templateUrl: 'views/user/send-message.html',
+			// 	controller: 'SentMessageCtrl',
+			// 	access: {
+			// 		requiredLogin: true,
+			// 		redirectTo: '/login'
+			// 	}
+			// })
+			// .state('RevievedMessage', {
+			// 	url: '/messages#recieved-messages',
+			// 	// templateUrl: 'views/user/send-message.html',
+			// 	controller: 'RecievedMessageCtrl',
+			// 	access: {
+			// 		requiredLogin: true,
+			// 		redirectTo: '/login'
+			// 	}
+			// })
 			.state('Logout', {
 				url: '/logout',
 				controller: 'UserCtrl',
@@ -136,16 +164,16 @@ angular.module('appRoutes', [])
 			})
 			.state('EditPost', {
 				url: '/EditPost',
-				controller: 'PostManageCtrl',
+				controller: 'EditPostCtrl',
 				templateUrl: 'views/post/edit.html',
 				access: {
 					requiredLogin: true
 				}
 			})
-			.state('Notification', {
-				url: '/notification',
-				controller: 'NotiCtrl',
-				templateUrl: 'views/manage/notification.html',
+			.state('Message', {
+				url: '/messages',
+				controller: 'MessageCtrl',
+				templateUrl: 'views/manage/message.html',
 				access: {
 					requiredLogin: true
 				}
@@ -190,6 +218,15 @@ angular.module('appRoutes', [])
 				url: '/admin/users',
 				controller: 'AdminUsersCtrl',
 				templateUrl: 'views/admin/users_manage.html',
+				access: {
+					requiredLogin: true,
+					requiredAdmin: true
+				}
+			})
+			.state('AdminUserDetail', {
+				url: '/admin/user/:id',
+				controller: 'AdminUserDetailCtrl',
+				templateUrl: 'views/admin/user_detail.html',
 				access: {
 					requiredLogin: true,
 					requiredAdmin: true

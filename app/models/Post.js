@@ -14,23 +14,27 @@ var Schema = mongoose.Schema({
     },
     userId: {
         type: ObjectId,
-        required: true
-    },
-    province: {
-        type: Mixed,
-        required: true
-    },
-    couty: {
-        type: Mixed,
-        required: true
+        required: true,
+        ref: 'User'
     },
     address: {
         type: String,
         required: true
     },
-    category: {
-        type: Mixed,
-        required: true
+    provinceId: {
+        type: ObjectId,
+        required: true,
+        ref: "Province"
+    },
+    coutyId: {
+        type: ObjectId,
+        required: true,
+        ref: "Couty"
+    },
+    categoryId: {
+        type: ObjectId,
+        required: true,
+        ref: "Category"
     },
     price: {
         type: Number,
@@ -43,10 +47,6 @@ var Schema = mongoose.Schema({
     picture: {
         type: Mixed,
         required: true
-    },
-    morePictures: {
-        type: Mixed,
-        required: false
     },
     creationDate: {
         type: Date,

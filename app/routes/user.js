@@ -57,8 +57,8 @@ module.exports = function(app) {
     });
 
     /* ------ Load user theo ID ------ */
-    app.post('/api/user/getByID', function(req, res) {
-        user.findById(req.body.id, function(error, foundUser) {
+    app.post('/api/user/getById', function(req, res) {
+        user.findById(req.body._id).populate("provinceId coutyId").exec(function(error, foundUser) {
             if (error) {
                 res.status(500);
                 res.send('Có lỗi xảy ra');
@@ -88,9 +88,8 @@ module.exports = function(app) {
 
     /* ------ Quên mật khẩu ------*/
     app.post('/api/user/forget', function(req, res) {
-        var inputEmail = req.body.email;
         user.findOne({
-            email: inputEmail
+            email: req.body.email
         }, function(error, foundUser) {
             // nếu có lỗi thì trả về lỗi.
             if (error) {
@@ -128,14 +127,14 @@ module.exports = function(app) {
                 // send mail with defined transport object
                 transporter.sendMail(mailOptions, function(error, info) {
                     if (error) {
-                        throw err;
+                        res.status(500).send('Có lỗi xảy ra khi gửi email mật khẩu!');
                     } else {
                         // console.log('Message sent: ' + info.response);
                         foundUser.password = foundUser.generateHash(ranString);
                         foundUser.save(function(error) {
                             if (error) {
                                 res.status(500);
-                                res.send('Có lỗi khi gửi email mật khẩu!');
+                                res.send('Có lỗi khi lưu mật khẩu mới!');
                             } else {
                                 res.status(200).send('Đổi mật khẩu thành công, vui lòng kiểm tra Email đăng ký!');
                             }
@@ -149,13 +148,13 @@ module.exports = function(app) {
 
     // Đăng xuất
     app.get('/api/user/logout', function(req, res) {
-        req.session.destroy(function(err) {
-            if (!err) {
+        req.session.destroy(function(error) {
+            if (!error) {
                 res.status(200);
                 res.end('Bạn đã đăng xuất thành công!');
             } else {
                 res.status(500);
-                res.end(err);
+                res.send('Có lỗi khi đăng xuất!');
                 sess = null;
             }
         });
@@ -163,14 +162,18 @@ module.exports = function(app) {
 
     // Đổi mật khẩu
     app.post('/api/user/changePassword', function(req, res) {
+        console.log(req.body);
         user.findOne({
-            _id: req.body.currentUser
+            _id: req.body.userId
         }, function(error, foundUser) {
             if (error) {
                 res.status(500);
                 res.send('Có lỗi xảy ra!');
             } else {
-                if (foundUser === null || foundUser.length !== 0) {
+                if (foundUser === null || foundUser.length === 0) {
+                    res.status(500);
+                    res.send('Không tìm thấy user');
+                } else {
                     if (!foundUser.validPassword(req.body.current)) {
                         res.status(500);
                         res.send("Mật khẩu không chính xác, xin nhập lại!");
@@ -186,9 +189,6 @@ module.exports = function(app) {
                             }
                         });
                     }
-                } else {
-                    res.status(500);
-                    res.send('Không tìm thấy user');
                 }
             }
         });
@@ -196,18 +196,20 @@ module.exports = function(app) {
 
     //Update 
     app.post('/api/user/update', function(req, res) {
-        user.findById(req.body._id, function(err, doc) {
-            if (err) {
+        user.findById(req.body._id, function(error, foundUser) {
+            if (error) {
                 res.status(500);
                 res.send("Có lỗi xảy ra");
+            } else if (foundUser === null || foundUser.length === 0) {
+                res.status(404).send('Không tìm thấy User!');
             } else {
-                doc.name = req.body.name;
-                doc.email = req.body.email;
-                doc.phone = req.body.phone;
-                doc.address = req.body.address;
-                doc.provinceId = req.body.provinceId;
-                doc.coutyId = req.body.coutyId;
-                doc.save(function(error) {
+                foundUser.name = req.body.name;
+                foundUser.email = req.body.email;
+                foundUser.phone = req.body.phone;
+                foundUser.address = req.body.address;
+                foundUser.provinceId = req.body.provinceId;
+                foundUser.coutyId = req.body.coutyId;
+                foundUser.save(function(error) {
                     if (error) {
                         // console.log(error);
                         res.status(500);
@@ -223,11 +225,11 @@ module.exports = function(app) {
 
     //Check user if isAdmin
     app.post('/api/user/isAdmin', function(req, res) {
-        user.findById(req.body._id, function(err, foundUser) {
-            if (err) {
+        user.findById(req.body._id, function(error, foundUser) {
+            if (error) {
                 res.status(500);
                 res.send('Có lỗi xảy ra!');
-            } else if (foundUser.length === 0) {
+            } else if (foundUser === null || foundUser.length === 0) {
                 res.status(404);
                 res.send('Không tìm thấy tài khoản!');
             } else {
@@ -250,13 +252,13 @@ module.exports = function(app) {
                 if (!foundUser.isAdmin) {
                     res.status(401).send('Bạn không có quyền thực hiện hành vi này!');
                 } else {
-                    user.findById(req.body._id, function(error, foundUser2){
-                        if(error || foundUser2 === null || foundUser2.length === 0) {
+                    user.findById(req.body._id, function(error, foundUser2) {
+                        if (error || foundUser2 === null || foundUser2.length === 0) {
                             res.status(500).send('Có lỗi xảy ra');
                         } else {
                             foundUser2.status = false;
-                            foundUser2.save(function(error){
-                                if(error) {
+                            foundUser2.save(function(error) {
+                                if (error) {
                                     res.status(500).send('Có lỗi xảy ra khi lưu trạng thái User');
                                 } else {
                                     res.status(200).send('Lưu trạng thái User thành công!');
@@ -278,13 +280,13 @@ module.exports = function(app) {
                 if (!foundUser.isAdmin) {
                     res.status(401).send('Bạn không có quyền thực hiện hành vi này!');
                 } else {
-                    user.findById(req.body._id, function(error, foundUser2){
-                        if(error || foundUser2 === null || foundUser2.length === 0) {
+                    user.findById(req.body._id, function(error, foundUser2) {
+                        if (error || foundUser2 === null || foundUser2.length === 0) {
                             res.status(500).send('Có lỗi xảy ra');
                         } else {
                             foundUser2.status = true;
-                            foundUser2.save(function(error){
-                                if(error) {
+                            foundUser2.save(function(error) {
+                                if (error) {
                                     res.status(500).send('Có lỗi xảy ra khi lưu trạng thái User');
                                 } else {
                                     res.status(200).send('Lưu trạng thái User thành công!');
@@ -306,13 +308,13 @@ module.exports = function(app) {
                 if (!foundUser.isAdmin) {
                     res.status(401).send('Bạn không có quyền thực hiện hành vi này!');
                 } else {
-                    user.findById(req.body._id, function(error, foundUser2){
-                        if(error || foundUser2 === null || foundUser2.length === 0) {
+                    user.findById(req.body._id, function(error, foundUser2) {
+                        if (error || foundUser2 === null || foundUser2.length === 0) {
                             res.status(500).send('Có lỗi xảy ra');
                         } else {
                             foundUser2.isAdmin = true;
-                            foundUser2.save(function(error){
-                                if(error) {
+                            foundUser2.save(function(error) {
+                                if (error) {
                                     res.status(500).send('Có lỗi xảy ra khi lưu trạng thái User');
                                 } else {
                                     res.status(200).send('Lưu trạng thái User thành công!');
@@ -334,13 +336,13 @@ module.exports = function(app) {
                 if (!foundUser.isAdmin) {
                     res.status(401).send('Bạn không có quyền thực hiện hành vi này!');
                 } else {
-                    user.findById(req.body._id, function(error, foundUser2){
-                        if(error || foundUser2 === null || foundUser2.length === 0) {
+                    user.findById(req.body._id, function(error, foundUser2) {
+                        if (error || foundUser2 === null || foundUser2.length === 0) {
                             res.status(500).send('Có lỗi xảy ra');
                         } else {
                             foundUser2.isAdmin = false;
-                            foundUser2.save(function(error){
-                                if(error) {
+                            foundUser2.save(function(error) {
+                                if (error) {
                                     res.status(500).send('Có lỗi xảy ra khi lưu trạng thái User');
                                 } else {
                                     res.status(200).send('Lưu trạng thái User thành công!');

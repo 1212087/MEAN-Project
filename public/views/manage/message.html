@@ -1,0 +1,113 @@
+<div class="container-fuild">
+	<div class="row">
+		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+			<div class="panel panel-default center">
+				<div class="panel-heading">
+					<h3 class="panel-title"><h3>Tin Nhắn</h3></h3>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<ul class="nav nav-tabs" role="tablist">
+							<li class="col-sm-6 active"><a data-toggle="tab" href="#sent-messages">Tin Đã Gửi</a></li>
+							<li class="col-sm-6"><a data-toggle="tab" href="#recieved-messages">Tin Đã Nhận</a></li>
+						</ul>
+						<div class="tab-content">
+							<input type="text" id="input" class="form-control" ng-model="search" placeholder="Tìm kiếm (Tên/email/nội dung tin nhắn)">
+							<br>
+							<div id="sent-messages" class="tab-pane fade in active">
+								<div class="table-responsive">
+									<table class="table table-hover table-bordered">
+										<thead>
+											<tr>
+												<th class="center">Người nhận</th>
+												<th class="center">Email người nhận</th>
+												<th class="center">Nội dung</th>
+												<th class="center">Ngày gửi</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr dir-paginate="message in messages | filter:search | orderBy:sort | itemsPerPage:10 track by message._id">
+												<td>{{message.toUser.name}}</td>
+												<td>{{message.toUser.email}}</td>
+												<td width="50%"><p>{{message.message}}</p></td>
+												<td>{{message.createdDate | date: "hh:MM:ss dd/MM/yyyy"}}</td>
+												
+											</tr>
+										</tbody>
+									</table>
+									<dir-pagination-controls max-size="10" direction-links="true" boundary-links="true" class="center pagination" style="width: 100%">
+				       
+				       
+				    				</dir-pagination-controls>
+								</div>
+							</div>
+							<div id="recieved-messages" class="tab-pane fade">
+								<div class="table-responsive">
+									<table class="table table-hover table-bordered">
+										<thead>
+											<tr>
+												<th class="center">Người gửi</th>
+												<th class="center">Email người gửi</th>
+												<th class="center">Nội dung</th>
+												<th class="center">Ngày gửi</th>
+												<th class="center">Quản lý</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr dir-paginate="message in messages | filter:search | orderBy:sort | itemsPerPage:10 track by message._id">
+												<td>
+													<p ng-if="message.fromUser === null">
+														Không có
+													</p>
+													<a href="/send-message/{{message.fromUser._id}}}/{{message.fromUser.name}}" title="" ng-if="message.fromUser !== null">
+														{{message.fromUser.name}}
+													</a>											
+												</td>
+												<td>
+													<p ng-if="message.fromUser === null">
+														Không có
+													</p>
+													<p ng-if="message.fromUser !== null">
+														{{message.fromUser.email}}
+													</p>	
+												</td>
+												<td width="50%">
+													<p ng-if="message.seen === false"><b>{{message.message}}</b></p>
+													<p ng-if="message.seen === true">{{message.message}}</p>
+												</td>
+												<td>{{message.createdDate | date: "hh:MM:ss dd/MM/yyyy"}}</td>
+												<td><a class="btn btn-info" role="button" href="/send-message/{{message.fromUser._id}}}/{{message.fromUser.name}}" ng-if="message.fromUser !== null">Trả lời</a></td>
+											</tr>
+										</tbody>
+									</table>
+									<dir-pagination-controls max-size="10" direction-links="true" boundary-links="true" class="center pagination" style="width: 100%">
+				       
+				       
+				    				</dir-pagination-controls>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" ng-controller="PreviousPostCtrl">
+			<div class="panel mobile-hidden">
+				<h3 class="center">Bài đăng vừa xem</h3>
+				<div class="container-fluid">
+					<div class="row" ng-repeat="post in previousPosts" style="padding: 5px 5px 5px 5px; margin-top: 10px; background-color: #EEEEEE; border-radius: 10px">
+						<div class="col-sm-4 image no-padding">
+							<a href="" ng-click="getPostDetail(post)"><img class="img-rounded" ng-src="{{post.picture.url}}" alt="Image"></a>
+						</div>
+						<div class="col-sm-8">
+							<a href="" ng-click="getPostDetail(post)" ><b>{{post.title}}</b></a>
+							<br>
+							<b class="price">{{post.price|number:0}} VND</b>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>

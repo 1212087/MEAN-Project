@@ -8,7 +8,8 @@ var Schema = mongoose.Schema ({
     },
     provinceId: {
         type: ObjectId,
-        required: true
+        required: true,
+        ref: "Province"
     },
     dateCreated: {
         type: 'Date',

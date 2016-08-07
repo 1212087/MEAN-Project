@@ -4,6 +4,7 @@ var post 		= require('./post');
 var category    = require('./category');
 var report      = require('./report');
 var couty       = require('./couty');
+var message     = require('./message');
 var mongoose    = require('mongoose');
 
 
@@ -20,6 +21,8 @@ module.exports = function (app) {
     category(app);
     // Quản lý report
     report(app);
+    // Quản lý message
+    message(app);
     app.get('*', function (req, res){
         res.sendfile('public/index.html');
     });

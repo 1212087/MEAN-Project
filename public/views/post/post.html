@@ -17,16 +17,12 @@
 									<td colspan="" rowspan="" headers="" class="price"><h3>{{post.price | number:0}} VND</h3></td>
 								</tr>
 								<tr>
-									<td colspan="" rowspan="" headers="" class="center"><b>Tình trạng:</b></td>
-									<td colspan="" rowspan="" headers="" class="">Mới</td>
-								</tr>
-								<tr>
 									<td colspan="" rowspan="" headers="" class="center"><b>Người đăng:</b></td>
 									<td colspan="" rowspan="" headers="" class="">{{user.name}}</td>
 								</tr>
 								<tr>
 									<td colspan="" rowspan="" headers="" class="center"><b>Địa chỉ:</b></td>
-									<td colspan="" rowspan="" headers="" class="">{{post.address}} - {{post.province.name}}</td>
+									<td colspan="" rowspan="" headers="" class="">{{post.address}} - {{post.coutyId.name}} -  {{post.provinceId.name}}</td>
 								</tr>
 								<tr>
 									<td colspan="" rowspan="" headers="" class="center"><b>Ngày Đăng</b></td>
@@ -51,7 +47,7 @@
 				<div class="panel contact no-margin">
 					<div class="btn-group btn-group-justified">
 						<div class="btn-group">
-							<button type="button" class="btn btn-info">Gửi tin nhắn</button>
+							<a href="/send-message/{{user._id}}/{{user.name}}" type="button" class="btn btn-info">Gửi tin nhắn</a>
 						</div>
 						<div class="btn-group">
 							<button type="button" class="btn btn-success" ng-click="showPhoneClick()">Xem SDT</button>

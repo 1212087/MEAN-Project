@@ -1,7 +1,7 @@
 angular.module('AccountManageCtrl', [])
 	.controller('AccountManageCtrl', ['$scope', '$state', 'User', 'Category', 'Post', 'Province', 'Couty', 'flash', function($scope, $state, User, Category, Post, Province, Couty, flash) {
 		$scope.currentUser = {
-			id: User.getCurrentUser()
+			_id: User.getCurrentUser()
 		};
 
 		$scope.editing = false;
@@ -15,9 +15,8 @@ angular.module('AccountManageCtrl', [])
 						.success(function(resProvince) {
 							$scope.provinces = resProvince;
 							for (var i = resProvince.length - 1; i >= 0; i--) {
-								if (resProvince[i]._id == $scope.user.provinceId) {
+								if (resProvince[i]._id == $scope.user.provinceId._id) {
 									$scope.userProvince = resProvince[i];
-									console.log($scope.userProvince);
 									break;
 								}
 							}
@@ -34,11 +33,10 @@ angular.module('AccountManageCtrl', [])
 						.success(function(resCouties) {
 							$scope.couties = resCouties;
 							for (var i = resCouties.length - 1; i >= 0; i--) {
-								if (resCouties[i]._id == $scope.user.coutyId) {
+								if (resCouties[i]._id == $scope.user.coutyId._id) {
 									$scope.userCouty = resCouties[i];
 								}
 							}
-							console.log(resCouties);
 						})
 						.error(function(error) {
 							/* Act on the event */
@@ -86,8 +84,7 @@ angular.module('AccountManageCtrl', [])
 
 		$scope.changePassword = function() {
 			if ($scope.password.new == $scope.password.reNew) {
-				$scope.password.currentUser = User.getCurrentUser();
-				console.log($scope.password);
+				$scope.password.userId = User.getCurrentUser();
 				User.changePassword($scope.password)
 					.success(function(res) {
 						flash.success = res;
@@ -112,6 +109,7 @@ angular.module('AccountManageCtrl', [])
 				User.Update($scope.user)
 					.success(function(res) {
 						flash.success = res;
+						$state.reload();
 					})
 					.error(function(error) {
 						flash.error = error;

@@ -79,10 +79,18 @@ angular.module('AdminCtrl', [])
 	$scope.report = Report.getCurrentReport();
 	$scope.reports = [];
 	$scope.reports.push($scope.report);
-	console.log($scope.reports);
+	Post.getById({
+			_id: $scope.report.postId._id
+		})
+		.success(function(resPost) {
+			$scope.post = resPost;
+		})
+		.error(function(error) {
+			flash.error = error;
+		});
 	$scope.LoadAllReports = function() {
 		Report.getByPost({
-				_id: $scope.report.post._id
+				_id: $scope.report.postId._id
 			})
 			.success(function(resReports) {
 				$scope.reports = [];
@@ -95,16 +103,17 @@ angular.module('AdminCtrl', [])
 
 	$scope.DeactivePost = function() {
 		Post.deactive({
-				_id: $scope.report.post._id,
+				_id: $scope.report.postId._id,
 				userId: User.getCurrentUser()
 			})
 			.success(function() {
 				Report.deactive({
-						_id: $scope.report.post._id,
+						_id: $scope.report.postId._id,
 						userId: User.getCurrentUser()
 					})
 					.success(function(res) {
-						console.log(res);
+						flash.success = res;
+						$state.go('AdminReports');
 					})
 					.error(function(error) {
 						flash.error = error;
@@ -117,11 +126,12 @@ angular.module('AdminCtrl', [])
 
 	$scope.DeactiveReport = function() {
 		Report.deactive({
-				_id: $scope.report.post._id,
+				_id: $scope.report.postId._id,
 				userId: User.getCurrentUser()
 			})
 			.success(function(res) {
 				flash.success = res;
+				$state.go('AdminReports');
 			})
 			.error(function(error) {
 				flash.error = error;
@@ -195,4 +205,17 @@ angular.module('AdminCtrl', [])
 				flash.error = error;
 			});
 	};
+}])
+
+.controller('AdminUserDetailCtrl', ['$scope', '$stateParams', 'User', 'flash', function($scope, $stateParams, User, flash) {
+	User.getById({
+			_id: $stateParams.id
+		})
+		.success(function(resUser) {
+			$scope.user = resUser;
+			console.log(resUser);
+		})
+		.error(function(error) {
+			flash.error = error;
+		});
 }]);

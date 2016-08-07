@@ -72,7 +72,7 @@ angular.module('UserCtrl', [])
                             /* Act on the event */
                             flash.error = error;
                             $scope.Process = false;
-                            setTimeout(function(){
+                            setTimeout(function() {
                                 $state.go('Register');
                             }, 2000);
                         });

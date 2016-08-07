@@ -6,28 +6,30 @@
 					<h3 class="panel-title"><h3>Reports</h3></h3>
 				</div>
 				<div class="panel-body">
-						<div class="table-responsive">
-							<table class="table table-bordered ">
-								<thead>
-									<tr>
-										<th class="center">Bài viết</th>
-										<th class="center">Người báo cáo</th>
-										<th class="center">Lý do</th>
-										<th class="center">Ngày báo cáo</th>
-										<th class="center">Hành động</th>
-									</tr>
-								</thead>
-								<tbody dir-paginate="report in reports | filter:search | orderBy:sort | itemsPerPage:5 track by report._id">
-									<tr>
-										<td>{{report.post.title}}</td>
-										<td>{{report.user.name}}</td>
-										<td>{{report.reason}}</td>
-										<td>{{report.createdDate|date:"dd-MM-yyyy"}}</td>
-										<td><button type="button" class="btn btn-info" ng-click="ReportDetail(report)">Xem Chi Tiết</button></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+					<input type="text" name="" id="input" class="form-control" required="required" ng-model="search" placeholder="Tìm kiếm">
+					<br>
+					<div class="table-responsive">
+						<table class="table table-bordered ">
+							<thead>
+								<tr>
+									<th class="center">Bài viết</th>
+									<th class="center">Người báo cáo</th>
+									<th class="center">Lý do</th>
+									<th class="center">Ngày báo cáo</th>
+									<th class="center">Hành động</th>
+								</tr>
+							</thead>
+							<tbody dir-paginate="report in reports | filter:search | orderBy:sort | itemsPerPage:10 track by report._id">
+								<tr>
+									<td>{{report.postId.title}}</td>
+									<td>{{report.userId.name}}</td>
+									<td>{{report.reason}}</td>
+									<td>{{report.createdDate|date:"dd-MM-yyyy"}}</td>
+									<td><button type="button" class="btn btn-info" ng-click="ReportDetail(report)">Xem Chi Tiết</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 					<dir-pagination-controls max-size="10" direction-links="true" boundary-links="true" class="center pagination" style="width: 100%">
 				       
 				       
