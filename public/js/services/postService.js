@@ -17,7 +17,7 @@ angular.module('postService', [])
                     var posts = JSON.parse($window.localStorage.getItem("previousPosts"));
                     var previousPosts = [];
                     angular.forEach(posts, function(value, key) {
-                        previousPosts.push(value);
+                        previousPosts.unshift(value);
                     });
 
                     return previousPosts;
