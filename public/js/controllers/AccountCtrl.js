@@ -90,7 +90,6 @@ angular.module('AccountCtrl', [])
                         delete $window.localStorage.currentPost;
                         delete $window.localStorage.previousPosts;
                         delete $window.localStorage.currentCategory;
-                        delete $window.localStorage.currentProvince;
                         flash.success = data;
                         setTimeout(function() {
                             $state.go('Login');

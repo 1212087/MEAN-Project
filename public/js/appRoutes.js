@@ -31,7 +31,7 @@ angular.module('appRoutes', [])
 			.state('Login', {
 				url: '/login',
 				templateUrl: 'views/user/login.html',
-				controller: 'UserCtrl',
+				controller: 'AccountCtrl',
 				title: 'Đăng nhập',
 				access: {
 					requiredLogin: false,
@@ -41,7 +41,7 @@ angular.module('appRoutes', [])
 			.state('Register', {
 				url: '/register',
 				templateUrl: 'views/user/register.html',
-				controller: 'UserCtrl',
+				controller: 'AccountCtrl',
 				title: 'Đăng ký',
 				access: {
 					requiredLogin: false,
@@ -51,7 +51,7 @@ angular.module('appRoutes', [])
 			.state('ForgetPassword', {
 				url: '/forget',
 				templateUrl: 'views/user/forget.html',
-				controller: 'UserCtrl',
+				controller: 'AccountCtrl',
 				title: 'Quên mật khẩu',
 				access: {
 					requiredLogin: false,
@@ -126,7 +126,7 @@ angular.module('appRoutes', [])
 			// })
 			.state('Logout', {
 				url: '/logout',
-				controller: 'UserCtrl',
+				controller: 'AccountCtrl',
 				access: {
 					requiredLogin: false
 				}
@@ -254,6 +254,10 @@ angular.module('appRoutes', [])
 	)
 	.run(['$rootScope', '$location', '$window', '$state', 'AuthenticationService', 'flash', 'Province', 'Category', 'User',
 		function($rootScope, $location, $window, $state, AuthenticationService, flash, Province, Category, User) {
+
+			$rootScope.back = function(){
+				$window.history.back();
+			};
 			$rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
 				if ($window.sessionStorage._id === undefined || $window.sessionStorage._id === null) {
 					$rootScope.isLoggedIn = false;

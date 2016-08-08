@@ -4,6 +4,8 @@ angular.module('MessageCtrl', [])
 		$scope.currentUser = {
 			_id: User.getCurrentUser()
 		};
+
+		console.log($scope.currentUser);
 		Message.SentMessages($scope.currentUser)
 			.success(function(resMessages) {
 				$scope.messages = resMessages;

@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div id="content">
 		<div class="row">
-			<div class="col-sm-9">
+			<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 xs-no-padding">
 				<div class="col-lg-12 no-padding panel">
 					<div class="search">
 						<form class="form-horizontal" role="form" name="form">
@@ -46,10 +46,10 @@
 							<div class="date mobile-hidden">
 								Ngày Đăng: <b><i>{{post.creationDate|date:'dd-MM-yyyy'}}</i></b>
 							</div>
-							<div class="localtion mobile-hidden">
+							<div class="localtion">
 								Địa điểm: <b>{{post.coutyId.name}} - {{post.provinceId.name}}</b>
 							</div>
-							<div class="price center">
+							<div class="price">
 								<h3><b>{{post.price|number:0}} VND</b></h3>
 							</div>
 							<div class="category mobile-hidden">

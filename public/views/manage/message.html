@@ -1,6 +1,6 @@
 <div class="container-fuild">
 	<div class="row">
-		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+		<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
 			<div class="panel panel-default center">
 				<div class="panel-heading">
 					<h3 class="panel-title"><h3>Tin Nhắn</h3></h3>
@@ -8,8 +8,8 @@
 				<div class="panel-body">
 					<div class="row">
 						<ul class="nav nav-tabs" role="tablist">
-							<li class="col-sm-6 active"><a data-toggle="tab" href="#sent-messages">Tin Đã Gửi</a></li>
-							<li class="col-sm-6"><a data-toggle="tab" href="#recieved-messages">Tin Đã Nhận</a></li>
+							<li class="col-xs-6 col-sm-6 col-md-6 col-lg-6 active"><a data-toggle="tab" href="#sent-messages">Tin Đã Gửi</a></li>
+							<li class="col-xs-6 col-sm-6 col-md-6 col-lg-6"><a data-toggle="tab" href="#recieved-messages">Tin Đã Nhận</a></li>
 						</ul>
 						<div class="tab-content">
 							<input type="text" id="input" class="form-control" ng-model="search" placeholder="Tìm kiếm (Tên/email/nội dung tin nhắn)">
@@ -88,7 +88,7 @@
 							</div>
 						</div>
 					</div>
-					
+					<button type="button" class="btn btn-primary" ng-click="back()">Trở lại</button>
 				</div>
 			</div>
 		</div>

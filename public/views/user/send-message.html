@@ -1,32 +1,35 @@
-<div class="container-fluid">
+<div class="">
 	<div class="row">
-		<div class="col-sm-9">
+		<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 xs-no-padding">
 			<div class="panel panel-default center">
 				<!-- Default panel contents -->
 				<div class="panel-heading"><h3>Gửi Tin Nhắn</h3></div>
-				<form class="form-horizontal" role="form" ng-submit="SendMessage()">
-					<div class="form-group">
-						<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-							<b>Người nhận: </b>
+				<div class="panel-body">
+					<form class="form-horizontal" role="form" ng-submit="SendMessage()">
+						<div class="form-group">
+							<div class="col-xs-5 col-sm-3 col-md-3 col-lg-3">
+								<b>Người nhận: </b>
+							</div>
+							<div class="col-xs-7 col-sm-9 col-md-9 col-lg-9">
+								{{toUser.name}}
+							</div>
 						</div>
-						<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-							{{toUser.name}}
+						<div class="form-group">
+							<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 mobile-hidden">
+								<b>Nội dung tin nhắn: </b>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+								<textarea name="" class="form-control" ng-model="message" required="required" placeholder="Nội dung tin nhắn nên có tên món đồ bạn muốn mua kèm thông tin liên lạc để chủ nhân món đồ tiện liên hệ!"></textarea>
+							</div>		
 						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-3">
-							<b>Nội dung tin nhắn: </b>
+						<div class="form-group">
+							<div class="col-sm-10 col-sm-offset-2">
+								<button type="submit" class="btn btn-success">Gửi Tin Nhắn</button>
+								<button type="button" class="btn btn-primary" ng-click="back()">Trở lại</button>
+							</div>
 						</div>
-						<div class="col-sm-9">
-							<textarea name="" class="form-control" ng-model="message" required="required" placeholder="Nội dung tin nhắn nên có tên món đồ bạn muốn mua kèm thông tin liên lạc để chủ nhân món đồ tiện liên hệ!"></textarea>
-						</div>		
-					</div>
-					<div class="form-group">
-						<div class="col-sm-10 col-sm-offset-2">
-							<button type="submit" class="btn btn-primary">Gửi Tin Nhắn</button>
-						</div>
-					</div>
-				</form>
+					</form>
+				</div>		
 			</div>
 		</div>
 	</div>

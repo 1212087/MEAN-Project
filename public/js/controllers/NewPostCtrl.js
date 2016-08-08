@@ -68,7 +68,7 @@ angular.module('NewPostCtrl', [])
 					mimetype: 'image/*',
 					language: 'en',
 					services: ['COMPUTER', 'DROPBOX', 'GOOGLE_DRIVE', 'IMAGE_SEARCH', 'FACEBOOK', 'INSTAGRAM'],
-					openTo: 'IMAGE_SEARCH'
+					openTo: 'COMPUTER'
 				},
 				function(Blob) {
 					console.log(JSON.stringify(Blob));

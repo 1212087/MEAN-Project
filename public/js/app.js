@@ -16,7 +16,7 @@ var myApp = angular.module('myApp', [
 	'appRoutes',
 	'WelcomeCtrl',
 	'HomeCtrl',
-	'UserCtrl',
+	'AccountCtrl',
 	'AboutCtrl',
 	'NewPostCtrl',
 	'PostCtrl',

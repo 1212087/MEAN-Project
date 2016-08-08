@@ -1,28 +1,28 @@
 <div class="container-fluid">
 	<div id="content">
 		<div class="row">
-			<div class="col-sm-12 col-lg-9 new-post">
+			<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 new-post">
 				<form class="form-horizontal" role="form" name="form" ng-submit="submitNewPost()">
 					<div class="form-group center">
 						<legend>Đăng bán</legend>
 					</div>
 					<div class="form-group has-feedback">
 						<label class="control-label col-sm-2 mobile-hidden" for="name">Tên:</label>
-						<div class="col-sm-10">
+						<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
 							<input type="text" id="name" class="form-control" required="required" placeholder="Tên" value="{{user.name}}" disabled> 
 							<span class="glyphicon glyphicon-user form-control-feedback"></span>
 						</div>
 					</div>
 					<div class="form-group has-feedback">
 						<label class="control-label col-sm-2 mobile-hidden" for="phonenumber">Số điện thoại: </label>
-						<div class="col-sm-10">
+						<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
 							<input type="tel" id="email" class="form-control" required="required" placeholder="Email" value="{{user.phone}}" disabled>
 							<span class="glyphicon glyphicon-envelope form-control-feedback"></span>	
 						</div>
 					</div>
 					<div class="form-group has-feedback">
 						<label class="control-label col-sm-2 mobile-hidden" for="phonenumber">SDT khác:</label>
-						<div class="col-sm-10">
+						<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
 							<input type="tel" name="" id="phonenumber" class="form-control" placeholder="Số Điện Thoại" ng-model="newPost.phone">
 							<span class="glyphicon glyphicon-phone-alt form-control-feedback"></span>	
 						</div>
@@ -45,35 +45,35 @@
 					</div>
 					<div class="form-group has-feedback">
 						<label class="control-label col-sm-2 mobile-hidden" for="address2"></label>
-						<div class="col-sm-10">
+						<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
 							<input type="text" id="address2" class="form-control" required="required" placeholder="Số nhà - Tên đường" ng-model="newPost.address">
 							<span class="glyphicon glyphicon-home form-control-feedback"></span>	
 						</div>
 					</div>
 					<div class="form-group has-feedback">
 						<label class="control-label col-sm-2 mobile-hidden" for="title">Tiêu đề:</label>
-						<div class="col-sm-10">
+						<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
 							<input type="text" id="title" class="form-control" required="required" placeholder="Bạn muốn bán gì?" ng-model="newPost.title">
 							<span class="glyphicon glyphicon-pencil form-control-feedback"></span>	
 						</div>
 					</div>
 					<div class="form-group has-feedback">
 						<label class="control-label col-sm-2 mobile-hidden" for="title">Loại: </label>
-						<div class="col-sm-10">
+						<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
 							<select ng-options="category as category.name for category in categories|limitTo: categories.length : 1" class="form-control" ng-model="newPost.category">
 							</select>
 						</div>
 					</div>	
 					<div class="form-group has-feedback">
 						<label class="control-label col-sm-2 mobile-hidden" for="title">Giá bán: </label>
-						<div class="col-sm-10">
+						<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
 							<input type="number" id="title" class="form-control" required="required" min="{500"} max="" step="500"  placeholder="VND" ng-model="newPost.price">
 							<span class="glyphicon glyphicon-pencil form-control-feedback"></span>
 						</div>
 					</div>				
 					<div class="form-group has-feedback">
 						<label class="control-label col-sm-2 mobile-hidden" for="picture">Ảnh:</label>
-						<div class="col-sm-10 text-center">
+						<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 text-center">
 							<button type="button" class="btn btn-default" ng-click="upload()">
 								Upload <span class="caret"></span>
 							</button>
@@ -129,14 +129,14 @@
 					</div>		 -->
 					<div class="form-group has-feedback">
 						<label class="control-label col-sm-2 mobile-hidden" for="detai">Mô tả:</label>
-						<div class="col-sm-10">
+						<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
 							<textarea name="" id="detail" class="form-control" rows="8" required="required" placeholder="Mô tả về sản phẩm này" ng-model="newPost.description"></textarea>	
 						</div>
 					</div>		
 					<div class="form-group center">
-						<div class="col-sm-12">
+						<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
 							<button type="submit" class="btn btn-success">Đăng ngay</button>
-							<button type="button" class="btn btn-primary">Trở lại</button>
+							<button type="button" class="btn btn-primary" ng-click="back()">Trở lại</button>
 						</div>
 					</div>
 				</form>

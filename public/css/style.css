@@ -24,10 +24,6 @@ textarea {
 	width: 100%;
 }
 
-img{
-	width: 100%;
-	height: auto;
-}
 /* image 100x100 */
 .image-100 img {
 	width: 100px;
@@ -99,7 +95,7 @@ img{
 /*Wrapper*/
 #wrapper {
 	min-height: 100%;
-	padding-bottom: 50px;
+/*	padding-bottom: 50px;*/
 	position: relative;
 }
 /*Footer*/
@@ -116,14 +112,30 @@ img{
 
 
 
-@media only screen and (min-width: 320px) and (max-width: 767px)
+@media only screen and (min-width: 320px) and (max-width: 991px)
 {
+	img{
+		width: 100%;
+		height: auto;
+	    position: absolute;
+	    margin: auto;
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    bottom: 0;
+	}
 	body {
-		font-size: 13px;
+		font-size: 11px;
+	}
+	
+	textarea {
+		height: 200px !important;
+	}
+	.xs-no-padding {
+		padding: 0 !important;
 	}
 
-	.logo
-	{
+	.logo {
 		max-width: 100px;
 		padding: 0px;
 		width: 100px;
@@ -278,11 +290,24 @@ img{
 	}
 
 	.post .info .title {
-		height: 50%;
+		height: 40%;
+	}
+	
+	.title h3 {
+		font-size: 17px !important;
+		font-weight: bold;
 	}
 
 	.post .info .price {
 		height: 25%;
+	}
+	
+	.post-info img {
+		position: relative !important;
+	}
+
+	.price h3 {
+		font-size: 17px !important;
 	}
 	.product-info {
 		text-align: justify;
@@ -307,7 +332,7 @@ img{
 	}
 }
 
-@media only screen and (min-width: 600px) and (max-width: 1024px)
+@media only screen and (min-width: 992px) and (max-width: 1023px)
 {
 	body {
 		font-size: 13px;
@@ -371,7 +396,7 @@ img{
 	}
 }
 
-@media only screen and (min-width: 1025px)
+@media only screen and (min-width: 1024px)
 {
 	body {
 		font-size: 14px;
