@@ -28,6 +28,6 @@
     "angular-bootstrap": "^2.0.0"
   },
   "resolutions": {
-    "angular": "1.5.7"
+    "angular": "1.5.8"
   }
 }
